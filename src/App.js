@@ -1,5 +1,4 @@
-import React from 'react';
-import LoginCadastro from './components/LoginCadastro';
+import LoginCadastro from './components/TelaInicial/LoginCadastro';
 
 function App() {
   return <LoginCadastro />;
