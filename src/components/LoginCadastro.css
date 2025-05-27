@@ -1,0 +1,124 @@
+.pagina-container {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #A259FF, #F76FFF, #FF8A00);
+  min-height: 100vh;
+  color: white;
+  animation: fadeIn 1.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }  
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background: white;
+  color: #333;
+}
+
+.logo {
+  height: 40px;
+}
+
+.menu a {
+  margin-left: 2rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  background: linear-gradient(135deg, #5b00d2, #A259FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.menu a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(135deg, #5b00d2, #A259FF, #F76FFF);
+  transition: width 0.3s ease;
+}
+
+.menu a:hover::after {
+  width: 100%;
+}
+
+.conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+}
+
+.texto h1 {
+  margin-top: 1px;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: #333 1px 1px;
+}
+
+.texto p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-shadow: #333 0.5px 0.5px;
+}
+
+.botoes .btn {
+  padding: 0.75rem 2rem;
+  margin-right: 1rem;
+  border: none;
+  border-radius: 25px;
+  background: #6f00ff;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.botoes .btn:hover {
+  transform: scale(1.05);
+  background-color: #7a00ff
+}
+
+.btn-secundario {
+  background: #ff6ec4;
+}
+
+.imagem img {
+  width: 350px;
+  max-width: 100%;
+  filter: drop-shadow(0 0 5px #A259FF) drop-shadow(0 0 10px #F76FFF);
+  animation: brilho 2s ease-in-out infinite alternate;
+  /*animation: float 4s ease-in-out infinite;*/
+}
+
+/*@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}*/
+
+@keyframes brilho {
+  from {
+    filter: drop-shadow(0 0 5px #A259FF) drop-shadow(0 0 5px #F76FFF);
+  }
+  to {
+    filter: drop-shadow(0 0 5px #FF8A00) drop-shadow(0 0 5px #FFC837);
+  }
+}
