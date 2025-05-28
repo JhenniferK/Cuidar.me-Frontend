@@ -31,6 +31,7 @@
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  font-size: 1.15rem;
   background: linear-gradient(135deg, #5b00d2, #A259FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -59,7 +60,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 3rem;
+  padding: 2rem 4rem;
 }
 
 .texto h1 {
@@ -86,11 +87,13 @@
   font-size: 1rem;
   font-weight: bold;
   transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(162, 89, 255, 0.5);
 }
 
 .botoes .btn:hover {
   transform: scale(1.05);
-  background-color: #7a00ff
+  background-color: #7a00ff;
+  box-shadow: 0 6px 16px rgba(162, 89, 255, 0.6);
 }
 
 .btn-secundario {
