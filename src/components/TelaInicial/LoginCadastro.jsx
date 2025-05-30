@@ -4,7 +4,7 @@ import psicologa from '../../assets/psicologa.png'
 
 const LoginCadastro = () => {
   return (
-    <div className="pagina-container">
+    <div className="pagina-inicial-container">
       <header className="cabecalho">
         <img src={logonome} alt="Logo Cuidar.me" className="logo" />
         <nav className="menu">
@@ -14,7 +14,7 @@ const LoginCadastro = () => {
         </nav>
       </header>
 
-      <main className="conteudo">
+      <main className="conteudo-inicial">
         <div className="texto">
           <h1>Cuidando da sua<br></br>saúde mental</h1>
           <p>Faça login ou cadastre-se para começar a usar o Cuidar.me.</p>

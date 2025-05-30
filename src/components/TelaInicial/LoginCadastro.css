@@ -1,4 +1,4 @@
-.pagina-container {
+.pagina-inicial-container {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #A259FF, #F76FFF, #FF8A00);
   min-height: 100vh;
@@ -29,10 +29,9 @@
 .menu a {
   margin-left: 2rem;
   text-decoration: none;
-  color: #333;
   font-weight: bold;
-  font-size: 1.15rem;
-  background: linear-gradient(135deg, #5b00d2, #A259FF);
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #1f1f8b, #5b00d2, #A259FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -56,7 +55,7 @@
   width: 100%;
 }
 
-.conteudo {
+.conteudo-inicial {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -103,7 +102,7 @@
 .imagem img {
   width: 350px;
   max-width: 100%;
-  filter: drop-shadow(0 0 5px #A259FF) drop-shadow(0 0 10px #F76FFF);
+  filter: drop-shadow(0 0 5px #A259FF) drop-shadow(0 0 5px #F76FFF);
   animation: brilho 2s ease-in-out infinite alternate;
   /*animation: float 4s ease-in-out infinite;*/
 }

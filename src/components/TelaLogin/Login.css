@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html, #root {
+    height: 100%;
+}
+
+.pagina-container {
+    display: flex;
+    height: 100vh;
+}
+
+.conteudo {
+    flex: 1;
+    background-color: #fff;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.conteudo h1 {
+    background: linear-gradient(135deg, #1f1f8b, #5b00d2, #A259FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.form-group {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group input {
+    padding: 12px 10px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background-color: #f9f9ff;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-bottom: 2px solid #5b00d2;
+}
+
+.form-options {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.form-options a {
+    background: linear-gradient(135deg, #1f1f8b, #5b00d2, #A259FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-login {
+    padding: 10px 40px;
+    background: linear-gradient(135deg, #1f1f8b, #5b00d2, #A259FF);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+    background-color: #7a00ff;
+    box-shadow: 0 6px 16px rgba(162, 89, 255, 0.6)
+}
+
+.right {
+    flex: 1;
+    background: linear-gradient(135deg, #A259FF, #F76FFF, #FF8A00);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.right img {
+    width: 400px;
+    height: auto;
+    filter: drop-shadow(0 0 px #ffffff) drop-shadow(0 0 1px #F76FFF);
+    animation: brilho 2s ease-in-out infinite alternate;
+}
