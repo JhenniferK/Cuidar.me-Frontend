@@ -27,11 +27,11 @@
 }
 
 .menu a {
-  margin-left: 2rem;
+  margin-left: 3rem;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.1rem;
-  background: linear-gradient(135deg, #1f1f8b, #5b00d2, #A259FF);
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #5b00d2, #A259FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
