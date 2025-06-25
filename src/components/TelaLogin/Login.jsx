@@ -1,7 +1,9 @@
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 import logonome from '../../assets/logo-cuidarme(nome).png';
 
 const Login = () => {
+    const navigate = useNavigate();
     return (
         <div className="pagina-container">
             <div className="conteudo">
@@ -14,7 +16,7 @@ const Login = () => {
 
                 <div className="form-options">
                     <a href="#">Esqueceu a senha?</a>
-                    <button type="submit" className="btn-login">Entrar</button>
+                    <button type="submit" className="btn-login" onClick={() => navigate('/principal')}>Entrar</button>
                 </div>
             </div>
 

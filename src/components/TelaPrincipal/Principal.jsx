@@ -1,7 +1,9 @@
 import './Principal.css';
+import { useNavigate } from 'react-router-dom';
 import logonome from '../../assets/logo-cuidarme(nome).png';
 
 const Principal = () => {
+  const navigate = useNavigate();
   return (
     <div className="principal">
       <header className="header">
@@ -14,12 +16,13 @@ const Principal = () => {
           <a href="#">Agenda</a>
           <a href="#">Prontuários</a>
           <a href="#">Pagamentos</a>
+          <a href="#" onClick={() => navigate('/')}>Sair</a>
         </nav>
         <div className="profile-icon">👤</div>
       </header>
 
       <main className="main">
-        <h1>Bem-vindo(a) ao Cuidar.me!</h1>
+        <h1>Bem-vinda, Elizabeth Cristina!</h1>
         <p>Veja suas informações e atividades.</p>
 
         <div className="card-container">
