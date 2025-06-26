@@ -1,9 +1,9 @@
-import './Cadastro.css';
+import './LoginCadastro.css';
 import logonome from '../../assets/logo-cuidarme(nome).png';
 
 const Cadastro = () => {
     return (
-        <div className="pagina-cadastro-container">
+        <div className="pagina-logincadastro-container">
             <div className="conteudo">
                 <h1>Cadastro</h1>
 
@@ -14,7 +14,7 @@ const Cadastro = () => {
                 </form>
 
                 <div className="form-options">
-                    <button type="submit" className="btn-login">Cadastrar</button>
+                    <button type="submit" className="btn-submit">Cadastrar</button>
                 </div>
             </div>
 

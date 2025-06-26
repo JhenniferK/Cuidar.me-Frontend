@@ -7,7 +7,7 @@ const Principal = () => {
   return (
     <div className="principal">
       <header className="header">
-        <div className="logo">
+        <div className="logo-principal">
           <img src={logonome} alt="Cuidar.me" />
         </div>
         <nav className="nav">
@@ -22,7 +22,7 @@ const Principal = () => {
       </header>
 
       <main className="main">
-        <h1>Bem-vinda, Elizabeth Cristina!</h1>
+        <h1>Bem-vindo(a), Psicólogo(a)!</h1>
         <p>Veja suas informações e atividades.</p>
 
         <div className="card-container">

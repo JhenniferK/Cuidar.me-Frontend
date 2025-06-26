@@ -1,9 +1,9 @@
-import './LoginCadastro.css';
+import './TelaInicial.css';
 import { useNavigate } from 'react-router-dom'
 import logonome from '../../assets/logo-cuidarme(nome).png'
 import psicologa from '../../assets/psicologa.png'
 
-const LoginCadastro = () => {
+const TelaInicial = () => {
   const navigate = useNavigate();
   return (
     <div className="pagina-inicial-container">
@@ -11,8 +11,8 @@ const LoginCadastro = () => {
         <img src={logonome} alt="Logo Cuidar.me" className="logo" />
         <nav className="menu">
           <a href="#inicio">Início</a>
-          <a href="#sobre">Sobre</a>
-          <a href="#contato">Contato</a>
+          <a href="#sobre" onClick={() => navigate('/sobre')}>Sobre</a>
+          <a href="#contato" onClick={() => navigate('/contato')}>Contato</a>
         </nav>
       </header>
 
@@ -33,4 +33,4 @@ const LoginCadastro = () => {
   );
 };
 
-export default LoginCadastro;
+export default TelaInicial;

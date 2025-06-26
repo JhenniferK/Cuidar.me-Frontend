@@ -10,7 +10,7 @@
 @keyframes fadeIn {
   to {
     opacity: 1;
-  }  
+  }
 }
 
 .cabecalho {
@@ -110,6 +110,7 @@
   from {
     filter: drop-shadow(0 0 5px #A259FF) drop-shadow(0 0 5px #F76FFF);
   }
+
   to {
     filter: drop-shadow(0 0 5px #FF8A00) drop-shadow(0 0 5px #FFC837);
   }

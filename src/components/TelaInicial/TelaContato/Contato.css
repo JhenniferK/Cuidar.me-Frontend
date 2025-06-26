@@ -1,0 +1,45 @@
+.conteudo-contato {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 4rem;
+}
+
+.texto-contato h1 {
+    color: white;
+    margin-top: 1px;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: #333 1px 1px 1px;
+}
+
+.texto-contato p {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-shadow: #333 0.5px 0.5px 0.5px;
+}
+
+.icone {
+    color: white;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-size: 1.2rem;
+}
+
+.imagem-contato img {
+    width: 330px;
+    max-width: 100%;
+    filter: drop-shadow(0 0 5px #A259FF) drop-shadow(0 0 5px #F76FFF);
+    animation: brilho 2s ease-in-out infinite alternate;
+}
+
+@keyframes brilho {
+    from {
+        filter: drop-shadow(0 0 5px #A259FF) drop-shadow(0 0 5px #F76FFF);
+    }
+
+    to {
+        filter: drop-shadow(0 0 5px #FF8A00) drop-shadow(0 0 5px #FFC837);
+    }
+}
