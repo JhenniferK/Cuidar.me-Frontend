@@ -8,7 +8,7 @@ import psicologa from '../../../assets/psicologa-contato.png';
 const Contato = () => {
   const navigate = useNavigate();
   return (
-    <div className="pagina-contato-container">
+    <div className="pagina-inicial-container">
       <header className="cabecalho">
         <img src={logonome} alt="Logo Cuidar.me" className="logo" />
         <nav className="menu">
