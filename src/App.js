@@ -1,21 +1,43 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import LoginCadastro from './components/TelaInicial/TelaInicial';
 import Login from './components/TelasLoginCadastro/Login';
 import Cadastro from './components/TelasLoginCadastro/Cadastro';
 import Principal from './components/TelaPrincipal/Principal';
 import Sobre from './components/TelaInicial/TelaSobre/Sobre';
 import Contato from './components/TelaInicial/TelaContato/Contato';
+import Paciente from './components/TelaPaciente/Paciente';
+import Agenda from './components/TelaAgenda/Agenda';
+import Prontuario from './components/TelaProntuario/Prontuario';
+import Pagamento from './components/TelaPagamento/Pagamento';
+import BarraNavegacao from './components/Barra-navegacao/Header';
 
+const MainLayout = () => {
+  return (
+    <>
+    <BarraNavegacao />
+    <main>
+      <Outlet/>
+    </main>
+    </>
+  )
+}
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter> 
       <Routes>
         <Route path="/" element={<LoginCadastro />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/principal" element={<Principal />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
+
+        <Route element={<MainLayout/>}>
+          <Route path="/principal" element={<Principal />} />  
+          <Route path="/paciente" element={<Paciente />} />
+          <Route path="/agenda" element={<Agenda />} />
+          <Route path="/prontuario" element={<Prontuario />} />
+          <Route path="/pagamento" element={<Pagamento />} />  
+        </Route>
       </Routes>
     </BrowserRouter>
   )

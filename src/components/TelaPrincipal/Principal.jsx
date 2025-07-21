@@ -1,25 +1,12 @@
 import './Principal.css';
+import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import logonome from '../../assets/logo-cuidarme(nome).png';
+import logonome from '../../assets/logonome.png';
 
 const Principal = () => {
   const navigate = useNavigate();
   return (
     <div className="principal">
-      <header className="header">
-        <div className="logo-principal">
-          <img src={logonome} alt="Cuidar.me" />
-        </div>
-        <nav className="nav">
-          <a href="#">Início</a>
-          <a className="active" href="#">Pacientes</a>
-          <a href="#">Agenda</a>
-          <a href="#">Prontuários</a>
-          <a href="#">Pagamentos</a>
-          <a href="#" onClick={() => navigate('/')}>Sair</a>
-        </nav>
-        <div className="profile-icon">👤</div>
-      </header>
 
       <main className="main">
         <h1>Bem-vindo(a), Psicólogo(a)!</h1>

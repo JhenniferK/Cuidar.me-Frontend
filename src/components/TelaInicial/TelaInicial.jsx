@@ -1,6 +1,6 @@
 import './TelaInicial.css';
 import { useNavigate } from 'react-router-dom'
-import logonome from '../../assets/logo-cuidarme(nome).png'
+import logonome from '../../assets/logonome.png';
 import psicologa from '../../assets/psicologa.png'
 
 const TelaInicial = () => {

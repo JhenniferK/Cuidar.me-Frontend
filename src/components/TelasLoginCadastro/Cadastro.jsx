@@ -1,5 +1,5 @@
 import './LoginCadastro.css';
-import logonome from '../../assets/logo-cuidarme(nome).png';
+import logonome from '../../assets/logonome.png';
 
 const Cadastro = () => {
     return (

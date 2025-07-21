@@ -1,6 +1,6 @@
 import './LoginCadastro.css';
 import { useNavigate } from 'react-router-dom';
-import logonome from '../../assets/logo-cuidarme(nome).png';
+import logonome from '../../assets/logonome.png';
 
 const Login = () => {
     const navigate = useNavigate();

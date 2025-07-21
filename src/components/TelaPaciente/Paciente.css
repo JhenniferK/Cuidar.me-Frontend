@@ -1,0 +1,242 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f7f7; /* Um fundo neutro para a página inteira */
+}
+
+.pagina-pacientes {
+   background-color: #f4f2ff;
+}
+
+.header-pacientes-gradiente {
+  background: linear-gradient(90deg, #6a11cb 0%, #a259ff 50%, #f76fff 100%);
+  color: white;
+  padding: 2rem 3rem 8rem 3rem; /* Padding inferior grande para o efeito de sobreposição */
+}
+
+.header-pacientes-gradiente h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.header-pacientes-gradiente p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.conteudo-principal {
+  background-color: white;
+  padding: 2rem;
+  margin: 0 3rem;
+  border-radius: 30px;
+  margin-top: -6rem; /* A MÁGICA: Puxa o bloco branco para cima */
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.07);
+}
+
+.btn-novo-paciente {
+  background: linear-gradient(135deg, #3672f8 0%, #2575fc 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.btn-novo-paciente:hover {
+  transform: translateY(-2px);
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: #fdfdff;
+  border: 1px solid #f0f0f0;
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-info p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.stat-info span {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4a2f8b;
+}
+
+.stat-icon {
+  font-size: 1.8rem;
+  color: #a259ff;
+}
+
+.filtro-container {
+  display: flex;
+  gap: 1.5rem;
+  background-color: #f7f7f7;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid #eee;
+}
+
+.input-busca, .input-filtro {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6c757d;
+  width: 100%;
+}
+
+.input-busca input, .input-filtro select {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  background: transparent;
+}
+
+.lista-pacientes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ---- ESTILOS DO CARD DE PACIENTE (IDÊNTICOS AO SEU, ESTÃO ÓTIMOS) ---- */
+.card-paciente {
+  background-color: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 1rem;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a259ff, #f76fff);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.info-pessoal {
+  flex-grow: 1;
+}
+.info-pessoal h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #343a40;
+}
+.info-pessoal p {
+  margin: 0;
+  color: #6c757d;
+}
+
+.status-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+  text-transform: capitalize;
+}
+.status-badge.ativo {
+  background-color: #28a745;
+}
+.status-badge.inativo {
+  background-color: #6c757d;
+}
+
+.card-body {
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+.card-body p {
+  margin: 0.5rem 0;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.card-body p strong {
+  color: #343a40;
+}
+
+.card-footer {
+  display: flex;
+  gap: 1rem;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 1rem;
+}
+.card-footer button {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+.btn-detalhes {
+  background-color: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  color: #343a40;
+}
+.btn-editar {
+  background-color: #f0e6ff;
+  border: 1px solid #dcd1ff;
+  color: #4a2f8b;
+}
+.btn-detalhes:hover {
+  background-color: #e0e0e0;
+}
+.btn-editar:hover {
+  background-color: #dcd1ff;
+}
