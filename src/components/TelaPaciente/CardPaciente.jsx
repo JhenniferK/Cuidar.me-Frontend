@@ -1,4 +1,3 @@
-import React from "react";
 import './Paciente.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faCalendarAlt, faClock, faEye, faEdit } from '@fortawesome/free-solid-svg-icons';

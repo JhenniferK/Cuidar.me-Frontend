@@ -1,7 +1,8 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css'; 
 import logonome from '../../assets/logonome.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   return (
@@ -16,7 +17,12 @@ const Header = () => {
         <NavLink to="/prontuarios">Prontuários</NavLink>
         <NavLink to="/pagamentos">Pagamentos</NavLink>
       </nav>
-      <div className="profile-icon">👤</div>
+
+      <div className="perfil-container">
+        <NavLink to="/perfil" className="perfil-button">
+          <FontAwesomeIcon icon={faUserFriends}/>
+        </NavLink>
+      </div>
     </header>
   );
 };
