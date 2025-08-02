@@ -10,6 +10,8 @@ import Agenda from './components/TelaAgenda/Agenda';
 import Prontuario from './components/TelaProntuario/Prontuario';
 import Pagamento from './components/TelaPagamento/Pagamento';
 import BarraNavegacao from './components/Barra-navegacao/Header';
+import Perfil from './components/Barra-navegacao/Perfil';
+import AddPaciente from './components/TelaPaciente/AddPaciente';
 
 const MainLayout = () => {
   return (
@@ -36,8 +38,12 @@ function App() {
           <Route path="/paciente" element={<Paciente />} />
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/prontuario" element={<Prontuario />} />
-          <Route path="/pagamento" element={<Pagamento />} />  
+          <Route path="/pagamento" element={<Pagamento />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/addPaciente" element={<AddPaciente />} />
         </Route>
+
+        <Route element={<Perfil/>}></Route>
       </Routes>
     </BrowserRouter>
   )

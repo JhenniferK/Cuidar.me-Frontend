@@ -55,6 +55,14 @@
   width: 100%;
 }
 
+.menu a.active {
+  font-weight: bold;
+}
+
+.menu a.active::after {
+  width: 100%;
+}
+
 .conteudo-inicial {
   display: flex;
   align-items: center;

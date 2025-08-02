@@ -1,15 +1,35 @@
 import './Paciente.css';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faUserFriends, faCalendarDay, faClock, faSearch, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import CardPaciente from './CardPaciente';
 
 const Paciente = () => {
+
+    const [pacientes, setPacientes] = useState([]);
+    const [busca, setBusca] = useState("");
+
+    useEffect (() => {
+        axios.get('http://localhost:8081/paciente/listar')
+            .then(response => {
+                setPacientes(response.data)
+            })
+            .catch(error => {
+                console.error('Erro ao buscar pacientes:', error)
+            });
+    }, []);
+
+    const pacientesFiltrados = pacientes.filter(paciente =>
+        paciente.nome.toLowerCase().includes(busca.toLowerCase())
+    );
+
     return (
         <div className="pagina-pacientes">
             <header className="header-pacientes-gradiente">
                 <h1>Meus Pacientes</h1>
-                <p>Gerencie e acompanhe seus pacientes</p>
+                <p>Gerencie e acompanhe seus pacientes.</p>
                 <button className="btn-novo-paciente">
                     <FontAwesomeIcon icon={faPlus}/> Novo Paciente
                 </button>
@@ -17,13 +37,14 @@ const Paciente = () => {
 
             <main className="conteudo-principal">
                 <section className="stats-container">
-                    <div className="start-card">
+                    <div className="stat-card">
                         <div className="stat-info">
                             <p>Total de Pacientes</p>
-                            <span>6</span>
+                            <span>{pacientes.length}</span>
                         </div>
                         <FontAwesomeIcon icon={faUserFriends} className="stat-icon"/>
                     </div>
+
                     <div className="stat-card">
                         <div className="stat-info">
                             <p>Pacientes Ativos</p>
@@ -31,6 +52,7 @@ const Paciente = () => {
                         </div>
                         <FontAwesomeIcon icon={faCalendarDay} className="stat-icon"/>
                     </div>
+
                     <div className="stat-card">
                         <div className="stat-info">
                             <p>Consultas Hoje</p>
@@ -39,10 +61,16 @@ const Paciente = () => {
                         <FontAwesomeIcon icon={faClock} className="stat-icon"/>
                     </div>
                 </section>
+
                 <section className="filtro-container">
                     <div className="input-busca">
                         <FontAwesomeIcon icon={faSearch}/>
-                        <input type="text" placeholder="Buscar pacientes..."/>
+                        <input 
+                            type="text"
+                            placeholder="Buscar pacientes"
+                            value={busca}
+                            onChange={(e) => setBusca(e.target.value)}
+                        />
                     </div>
                     <div className="input-filtro">
                         <FontAwesomeIcon icon={faFilter}/>
@@ -53,11 +81,11 @@ const Paciente = () => {
                         </select>
                     </div>
                 </section>
+
             <section className="lista-pacientes">
-                <CardPaciente />
-                <CardPaciente />
-                <CardPaciente />
-                <CardPaciente />
+                {pacientesFiltrados.map((paciente, index) => (
+                    <CardPaciente key={index} paciente={paciente} />
+                ))}
             </section>
         </main>
     </div>

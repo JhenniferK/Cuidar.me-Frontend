@@ -6,7 +6,7 @@
 
 body, html {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f7f7f7; /* Um fundo neutro para a página inteira */
+  background-color: #f7f7f7; /*Um fundo neutro para a página inteira*/
 }
 
 .pagina-pacientes {
@@ -16,7 +16,7 @@ body, html {
 .header-pacientes-gradiente {
   background: linear-gradient(90deg, #6a11cb 0%, #a259ff 50%, #f76fff 100%);
   color: white;
-  padding: 2rem 3rem 8rem 3rem; /* Padding inferior grande para o efeito de sobreposição */
+  padding: 2rem 3rem 8rem 3rem; /*Padding inferior grande para o efeito de sobreposição*/
 }
 
 .header-pacientes-gradiente h1 {
@@ -36,7 +36,7 @@ body, html {
   padding: 2rem;
   margin: 0 3rem;
   border-radius: 30px;
-  margin-top: -6rem; /* A MÁGICA: Puxa o bloco branco para cima */
+  margin-top: -6rem; /*Puxa o bloco branco para cima */
   position: relative;
   z-index: 10;
   box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.07);
@@ -86,6 +86,8 @@ body, html {
 }
 
 .stat-info span {
+  display: flex;
+  flex-direction: column;
   font-size: 2.5rem;
   font-weight: bold;
   color: #4a2f8b;
