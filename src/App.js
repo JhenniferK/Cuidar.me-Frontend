@@ -33,7 +33,7 @@ function App() {
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
 
-        <Route element={<MainLayout/>}>
+        <Route element={<MainLayout/> }>
           <Route path="/principal" element={<Principal />} />  
           <Route path="/paciente" element={<Paciente />} />
           <Route path="/agenda" element={<Agenda />} />

@@ -1,10 +1,11 @@
 import './Paciente.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faUserFriends, faCalendarDay, faClock, faSearch, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import CardPaciente from './CardPaciente';
+import addPaciente from './AddPaciente';
+import { NavLink } from 'react-router-dom';
 
 const Paciente = () => {
 
@@ -30,9 +31,11 @@ const Paciente = () => {
             <header className="header-pacientes-gradiente">
                 <h1>Meus Pacientes</h1>
                 <p>Gerencie e acompanhe seus pacientes.</p>
-                <button className="btn-novo-paciente">
-                    <FontAwesomeIcon icon={faPlus}/> Novo Paciente
-                </button>
+                <div className="add-paciente-container">
+                    <NavLink to="/addPaciente" className="btn-novo-paciente">
+                        <FontAwesomeIcon icon={faPlus}/> Novo Paciente
+                    </NavLink>
+                </div>
             </header>
 
             <main className="conteudo-principal">
@@ -72,6 +75,7 @@ const Paciente = () => {
                             onChange={(e) => setBusca(e.target.value)}
                         />
                     </div>
+                    
                     <div className="input-filtro">
                         <FontAwesomeIcon icon={faFilter}/>
                         <select>

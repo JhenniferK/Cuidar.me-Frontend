@@ -6,7 +6,7 @@
 
 body, html {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f7f7f7; /*Um fundo neutro para a página inteira*/
+  background-color: #f7f7f7;
 }
 
 .pagina-pacientes {
@@ -16,7 +16,7 @@ body, html {
 .header-pacientes-gradiente {
   background: linear-gradient(90deg, #6a11cb 0%, #a259ff 50%, #f76fff 100%);
   color: white;
-  padding: 2rem 3rem 8rem 3rem; /*Padding inferior grande para o efeito de sobreposição*/
+  padding: 2rem 3rem 8rem 3rem; 
 }
 
 .header-pacientes-gradiente h1 {
@@ -36,14 +36,14 @@ body, html {
   padding: 2rem;
   margin: 0 3rem;
   border-radius: 30px;
-  margin-top: -6rem; /*Puxa o bloco branco para cima */
+  margin-top: -6rem;
   position: relative;
   z-index: 10;
   box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.07);
 }
 
 .btn-novo-paciente {
-  background: linear-gradient(135deg, #3672f8 0%, #2575fc 100%);
+  background: linear-gradient(135deg, #450ee9 0%, #450ee9 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -51,8 +51,9 @@ body, html {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  display: flex;
+  display: inline-flex; 
   align-items: center;
+  text-decoration: none; 
   gap: 0.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
@@ -130,7 +131,6 @@ body, html {
   gap: 1.5rem;
 }
 
-/* ---- ESTILOS DO CARD DE PACIENTE (IDÊNTICOS AO SEU, ESTÃO ÓTIMOS) ---- */
 .card-paciente {
   background-color: white;
   border-radius: 15px;
@@ -167,11 +167,13 @@ body, html {
 .info-pessoal {
   flex-grow: 1;
 }
+
 .info-pessoal h3 {
   margin: 0;
   font-size: 1.3rem;
   color: #343a40;
 }
+
 .info-pessoal p {
   margin: 0;
   color: #6c757d;
@@ -185,9 +187,11 @@ body, html {
   color: white;
   text-transform: capitalize;
 }
+
 .status-badge.ativo {
   background-color: #28a745;
 }
+
 .status-badge.inativo {
   background-color: #6c757d;
 }
@@ -196,6 +200,7 @@ body, html {
   margin-bottom: 1rem;
   flex-grow: 1;
 }
+
 .card-body p {
   margin: 0.5rem 0;
   color: #495057;
@@ -203,6 +208,7 @@ body, html {
   align-items: center;
   gap: 0.75rem;
 }
+
 .card-body p strong {
   color: #343a40;
 }
@@ -213,6 +219,7 @@ body, html {
   border-top: 1px solid #f0f0f0;
   padding-top: 1rem;
 }
+
 .card-footer button {
   flex: 1;
   padding: 0.6rem;
@@ -226,19 +233,23 @@ body, html {
   gap: 0.5rem;
   transition: background-color 0.2s;
 }
+
 .btn-detalhes {
   background-color: #f0f0f0;
   border: 1px solid #e0e0e0;
   color: #343a40;
 }
+
 .btn-editar {
   background-color: #f0e6ff;
   border: 1px solid #dcd1ff;
   color: #4a2f8b;
 }
+
 .btn-detalhes:hover {
   background-color: #e0e0e0;
 }
+
 .btn-editar:hover {
   background-color: #dcd1ff;
 }
