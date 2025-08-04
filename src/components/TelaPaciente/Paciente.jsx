@@ -50,7 +50,7 @@ const Paciente = () => {
                     <div className="stat-card">
                         <div className="stat-info">
                             <p>Pacientes Ativos</p>
-                            <span>4</span>
+                            <span>3</span>
                         </div>
                         <FontAwesomeIcon icon={faCalendarDay} className="stat-icon" />
                     </div>
@@ -58,7 +58,7 @@ const Paciente = () => {
                     <div className="stat-card">
                         <div className="stat-info">
                             <p>Consultas Hoje</p>
-                            <span>3</span>
+                            <span>1</span>
                         </div>
                         <FontAwesomeIcon icon={faClock} className="stat-icon" />
                     </div>

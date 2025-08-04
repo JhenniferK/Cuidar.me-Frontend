@@ -41,8 +41,8 @@ const CardPaciente = ({ paciente }) => {
         <div className="card-paciente">
             <div className="card-header">
                 <div className="avatar">{nome?.split(" ").slice(0, 2).map((tk, i) => {
-                    return tk[0].toUpperCase()
-                })}</div>
+                    return tk[0].toUpperCase()})}
+                </div>
                 <div className="info-pessoal">
                     <h3>{nome}</h3>
                     <p>{idade} anos</p>

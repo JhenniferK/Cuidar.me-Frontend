@@ -1,15 +1,28 @@
 import './Principal.css';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logonome from '../../assets/logonome.png';
 
 const Principal = () => {
   const navigate = useNavigate();
+  const [psicologo, setPsicologo] = useState(null);
+
+  useEffect(() => {
+    const dadosSalvos = localStorage.getItem('usuarioLogado');
+    if (dadosSalvos) {
+      setPsicologo(JSON.parse(dadosSalvos));
+    } else {
+      alert('Você precisa estar logado!');
+      navigate('/');
+    }
+  }, []);
+
+  if (!psicologo) return null;
+
   return (
     <div className="principal">
-
       <main className="main">
-        <h1>Bem-vindo(a), Psicólogo(a)!</h1>
+        <h1>Bem-vindo(a), {psicologo.nome}!</h1>
         <p>Veja suas informações e atividades.</p>
 
         <div className="card-container">

@@ -5,8 +5,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body,
-html,
+body, html,
 #root {
     height: 100%;
 }
