@@ -129,6 +129,7 @@ body, html {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: 1.5rem;
+  align-items: start;
 }
 
 .card-paciente {

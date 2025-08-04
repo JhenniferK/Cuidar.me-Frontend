@@ -38,6 +38,22 @@ const AddPaciente = () => {
     estado: ''
   });
 
+  const formatarCPF = (valor) => {
+    valor = valor.replace(/\D/g, '').slice(0, 11);
+    return valor
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  };
+
+  const formatarTelefone = (valor) => {
+    valor = valor.replace(/\D/g, '').slice(0, 11);
+    return valor
+      .replace(/^(\d{2})(\d)/g, '($1) $2')
+      .replace(/(\d{5})(\d{4})$/, '$1-$2');
+  };
+
+
   const buscarEnderecoPorCep = async (cep, tipoEndereco) => {
     const cepLimpo = cep.replace(/\D/g, '');
 
@@ -148,9 +164,9 @@ const AddPaciente = () => {
                 <input
                   type="text"
                   id="cpf"
-                  placeholder="123.456.789-00"
+                  placeholder="Apenas números"
                   value={cpf}
-                  onChange={(e) => setCpf(e.target.value)}
+                  onChange={(e) => setCpf(formatarCPF(e.target.value))}
                   required
                 />
               </div>
@@ -163,7 +179,7 @@ const AddPaciente = () => {
                 <input
                   type="text"
                   id="rg"
-                  placeholder="1.234-567"
+                  placeholder="Apenas números"
                   value={rg}
                   onChange={(e) => setRg(e.target.value)}
                   required
@@ -192,9 +208,9 @@ const AddPaciente = () => {
                 <input
                   type="text"
                   id="telefone"
-                  placeholder="(11) 9 9999-9999"
+                  placeholder="Apenas números"
                   value={telefonePessoal}
-                  onChange={(e) => setTelefonePessoal(e.target.value)}
+                  onChange={(e) => setTelefonePessoal(formatarTelefone(e.target.value))}
                   required
                 />
               </div>
@@ -209,7 +225,9 @@ const AddPaciente = () => {
                   id="nome-emergencia"
                   placeholder="Nome"
                   value={contatoEmergencia.nome}
-                  onChange={(e) => setContatoEmergencia({...contatoEmergencia, nome: e.target.value})}
+                  onChange={(e) => setContatoEmergencia({
+                    ...contatoEmergencia, 
+                    nome: e.target.value})}
                   required
                 />
               </div>
@@ -219,9 +237,11 @@ const AddPaciente = () => {
                 <input
                   type="text"
                   id="telefone-emergencia"
-                  placeholder="(11) 99999-9999"
+                  placeholder="Apenas números"
                   value={contatoEmergencia.telefone}
-                  onChange={(e) => setContatoEmergencia({...contatoEmergencia, telefone: e.target.value})}
+                  onChange={(e) => setContatoEmergencia({
+                    ...contatoEmergencia, 
+                    telefone: formatarTelefone(e.target.value)})}
                   required
                 />
               </div>

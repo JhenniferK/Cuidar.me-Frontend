@@ -1,10 +1,9 @@
 import './Paciente.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserFriends, faCalendarDay, faClock, faSearch, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import CardPaciente from './CardPaciente';
-import addPaciente from './AddPaciente';
 import { NavLink } from 'react-router-dom';
 
 const Paciente = () => {
@@ -12,7 +11,7 @@ const Paciente = () => {
     const [pacientes, setPacientes] = useState([]);
     const [busca, setBusca] = useState("");
 
-    useEffect (() => {
+    useEffect(() => {
         axios.get('http://localhost:8081/paciente/listar')
             .then(response => {
                 setPacientes(response.data)
@@ -33,7 +32,7 @@ const Paciente = () => {
                 <p>Gerencie e acompanhe seus pacientes.</p>
                 <div className="add-paciente-container">
                     <NavLink to="/addPaciente" className="btn-novo-paciente">
-                        <FontAwesomeIcon icon={faPlus}/> Novo Paciente
+                        <FontAwesomeIcon icon={faPlus} /> Novo Paciente
                     </NavLink>
                 </div>
             </header>
@@ -45,7 +44,7 @@ const Paciente = () => {
                             <p>Total de Pacientes</p>
                             <span>{pacientes.length}</span>
                         </div>
-                        <FontAwesomeIcon icon={faUserFriends} className="stat-icon"/>
+                        <FontAwesomeIcon icon={faUserFriends} className="stat-icon" />
                     </div>
 
                     <div className="stat-card">
@@ -53,7 +52,7 @@ const Paciente = () => {
                             <p>Pacientes Ativos</p>
                             <span>4</span>
                         </div>
-                        <FontAwesomeIcon icon={faCalendarDay} className="stat-icon"/>
+                        <FontAwesomeIcon icon={faCalendarDay} className="stat-icon" />
                     </div>
 
                     <div className="stat-card">
@@ -61,23 +60,23 @@ const Paciente = () => {
                             <p>Consultas Hoje</p>
                             <span>3</span>
                         </div>
-                        <FontAwesomeIcon icon={faClock} className="stat-icon"/>
+                        <FontAwesomeIcon icon={faClock} className="stat-icon" />
                     </div>
                 </section>
 
                 <section className="filtro-container">
                     <div className="input-busca">
-                        <FontAwesomeIcon icon={faSearch}/>
-                        <input 
+                        <FontAwesomeIcon icon={faSearch} />
+                        <input
                             type="text"
                             placeholder="Buscar pacientes"
                             value={busca}
                             onChange={(e) => setBusca(e.target.value)}
                         />
                     </div>
-                    
+
                     <div className="input-filtro">
-                        <FontAwesomeIcon icon={faFilter}/>
+                        <FontAwesomeIcon icon={faFilter} />
                         <select>
                             <option value="todos">Todos os status</option>
                             <option value="ativo">Ativo</option>
@@ -86,13 +85,13 @@ const Paciente = () => {
                     </div>
                 </section>
 
-            <section className="lista-pacientes">
-                {pacientesFiltrados.map((paciente, index) => (
-                    <CardPaciente key={index} paciente={paciente} />
-                ))}
-            </section>
-        </main>
-    </div>
+                <section className="lista-pacientes">
+                    {pacientes.map(paciente => (
+                        <CardPaciente key={paciente.id} paciente={paciente} />
+                    ))}
+                </section>
+            </main>
+        </div>
     );
 };
 
