@@ -11,11 +11,12 @@ const Header = () => {
         <img src={logonome} alt="Logo Cuidar.me" className="logo" />
       </div>
       <nav className="nav-principal">
-        <NavLink to="/">Início</NavLink>
+        <NavLink to="/principal">Início</NavLink>
         <NavLink to="/paciente">Pacientes</NavLink>
         <NavLink to="/agenda">Agenda</NavLink>
         <NavLink to="/prontuarios">Prontuários</NavLink>
         <NavLink to="/pagamentos">Pagamentos</NavLink>
+        <NavLink to="/">Sair</NavLink>
       </nav>
 
       <div className="perfil-container">

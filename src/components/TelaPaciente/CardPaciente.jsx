@@ -1,6 +1,6 @@
 import './Paciente.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone, faCalendarAlt, faClock, faEye, faEdit, faCalendar, faMapMarkerAlt, faHospital, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faCalendarAlt, faClock, faEye, faEdit, faCalendar, faMapMarkerAlt, faHospital, faInfoCircle, faGenderless, faHeart, faBriefcase, faBookOpen, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 const CardPaciente = ({ paciente }) => {
@@ -34,7 +34,6 @@ const CardPaciente = ({ paciente }) => {
         return `${dia}/${mes}/${ano}`;
     };
 
-
     const idade = calcularIdade(dataNascimento);
 
     return (
@@ -46,7 +45,7 @@ const CardPaciente = ({ paciente }) => {
                 <div className="info-pessoal">
                     <h3>{nome}</h3>
                     <p>{idade} anos</p>
-                </div>
+                </div>  
                 <span className="status-badge ativo">ativo</span>
             </div>
 
@@ -65,6 +64,15 @@ const CardPaciente = ({ paciente }) => {
                 <div style={{ marginTop: '20px', color: '#343a40', lineHeight: 2 }}>
 
                     <p><FontAwesomeIcon icon={faCalendar} /> <strong> Data de Nascimento: </strong>{formatarData(paciente.dataNascimento)}</p>
+
+                    <p><FontAwesomeIcon icon={faGenderless} /><strong> Gênero: </strong>{paciente.sexo}</p>
+
+                    <p><FontAwesomeIcon icon={faHeart} /><strong> Estado Civil: </strong>{paciente.estadoCivil}</p>
+
+                    <p><FontAwesomeIcon icon={faBook} /><strong> Escolaridade: </strong>{paciente.estadoCivil}</p>
+
+                    <p><FontAwesomeIcon icon={faBriefcase} /><strong> Profissão: </strong>{paciente.profissao}</p>
+
                     <p><FontAwesomeIcon icon={faPhone} /> <strong> Telefone: </strong>{paciente.telefonePessoal}</p>
 
                     {paciente.enderecoPessoal && (

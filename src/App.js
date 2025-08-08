@@ -12,6 +12,9 @@ import Pagamento from './components/TelaPagamento/Pagamento';
 import BarraNavegacao from './components/Barra-navegacao/Header';
 import Perfil from './components/Barra-navegacao/Perfil';
 import AddPaciente from './components/TelaPaciente/AddPaciente';
+import Agendamento from './components/TelaAgenda/Agendamento'
+import NovoAgendamento from './components/TelaAgenda/NovoAgendamento';
+import ConsultasAgendadas from './components/TelaAgenda/ConsultasAgendadas';
 
 const MainLayout = () => {
   return (
@@ -36,11 +39,15 @@ function App() {
         <Route element={<MainLayout/> }>
           <Route path="/principal" element={<Principal />} />  
           <Route path="/paciente" element={<Paciente />} />
-          <Route path="/agenda" element={<Agenda />} />
-          <Route path="/prontuario" element={<Prontuario />} />
-          <Route path="/pagamento" element={<Pagamento />} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/addPaciente" element={<AddPaciente />} />
+          <Route path="/agenda" element={<Agendamento />} />
+          <Route path="/prontuarios" element={<Prontuario />} />
+          <Route path="/pagamentos" element={<Pagamento />} />
+          <Route path="/perfil" element={<Perfil />} /> 
+          <Route path='/addPaciente' element={<AddPaciente/>} />
+          <Route path='/agendamento' element={<Agendamento />}/>
+          <Route path='/novoAgendamento' element={<NovoAgendamento />} />
+          <Route path='/consultasAgendadas' element={<ConsultasAgendadas/>}/>
+          <Route/>
         </Route>
 
         <Route element={<Perfil/>}></Route>

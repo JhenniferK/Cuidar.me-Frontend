@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky, faGenderless, faHeart, faBook, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './AddPaciente.css';
 import { NavLink } from 'react-router-dom';
@@ -14,6 +14,10 @@ const AddPaciente = () => {
   const [rg, setRg] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [telefonePessoal, setTelefonePessoal] = useState('');
+  const [sexo, setSexo] = useState('');
+  const [estadoCivil, setEstadoCivil] = useState('');
+  const [grauInstrucao, setGrauInstrucao] = useState('');
+  const [profissao, setProfissao] = useState('');
 
   const [contatoEmergencia, setContatoEmergencia] = useState({
     nome: '',
@@ -23,17 +27,17 @@ const AddPaciente = () => {
   const [infoAdicionais, setInfoAdicionais] = useState('');
 
   const [enderecoPessoal, setEnderecoPessoal] = useState({
+    cep: '',
     logradouro: '',
     numero: '',
-    cep: '',
     cidade: '',
     estado: ''
   });
 
   const [enderecoTrabalho, setEnderecoTrabalho] = useState({
+    cep: '',
     logradouro: '',
     numero: '',
-    cep: '',
     cidade: '',
     estado: ''
   });
@@ -109,6 +113,10 @@ const AddPaciente = () => {
       cpf,
       rg,
       dataNascimento,
+      sexo,
+      estadoCivil,
+      grauInstrucao,
+      profissao,
       telefonePessoal,
       enderecoPessoal,
       enderecoTrabalho,
@@ -202,6 +210,98 @@ const AddPaciente = () => {
             </div>
 
             <div className="grupo-form">
+              <label htmlFor="sexo">Sexo*</label>
+              <div className="input-with-icon">
+                <select
+                  id="sexo"
+                  value={sexo}
+                  onChange={(e) => setSexo(e.target.value)}
+                  required
+                >
+                  <option value="">Selecione</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+            </div>
+
+            {sexo === "Outro" && (
+              <div className="grupo-form">
+                <label htmlFor="sexo-outro">Especifique*</label>
+                <div className="input-with-icon">
+                  <input
+                    type="text"
+                    id="sexo-outro"
+                    placeholder="Digite o gênero"
+                    onChange={(e) => setSexo(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="grupo-form">
+              <label htmlFor="estadoCivil">Estado Civil*</label>
+              <div className="input-with-icon">
+                <select
+                  id="estadoCivil"
+                  value={estadoCivil}
+                  onChange={(e) => setEstadoCivil(e.target.value)}
+                  required
+                >
+                  <option value="">Selecione</option>
+                  <option value="Solteiro(a)">Solteiro(a)</option>
+                  <option value="Casado(a)">Casado(a)</option>
+                  <option value="Divorciado(a)">Divorciado(a)</option>
+                  <option value="Separado(a)">Separado(a)</option>
+                  <option value="Viúvo(a)">Viúvo(a)</option>
+                  <option value="União Estável">União Estável</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grupo-form">
+              <label htmlFor="grauInstrucao">Grau de Instrução*</label>
+              <div className="input-with-icon">
+                <select
+                  id="grauInstrucao"
+                  value={grauInstrucao}
+                  onChange={(e) => setGrauInstrucao(e.target.value)}
+                  required
+                >
+                  <option value="">Selecione</option>
+                  <option value="Ensino Fundamental Incompleto">Ensino Fundamental Incompleto</option>
+                  <option value="Ensino Fundamental Completo">Ensino Fundamental Completo</option>
+                  <option value="Ensino Médio Incompleto">Ensino Médio Incompleto</option>
+                  <option value="Ensino Médio Completo">Ensino Médio Completo</option>
+                  <option value="Ensino Superior Incompleto">Ensino Superior Incompleto</option>
+                  <option value="Ensino Superior Completo">Ensino Superior Completo</option>
+                  <option value="Pós-Graduação">Pós-Graduação</option>
+                  <option value="Mestrado">Mestrado</option>
+                  <option value="Doutorado">Doutorado</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grupo-form">
+              <label htmlFor="profissao">Profissão*</label>
+              <div className="input-with-icon">
+                <FontAwesomeIcon icon={faBriefcase} className="input-icon" />
+                <input
+                  type="text"
+                  id="profissao"
+                  value={profissao}
+                  onChange={(e) => setProfissao(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+
+            <div className="grupo-form">
               <label htmlFor="telefone">Telefone*</label>
               <div className="input-with-icon">
                 <FontAwesomeIcon icon={faPhone} className="input-icon" />
@@ -226,8 +326,9 @@ const AddPaciente = () => {
                   placeholder="Nome"
                   value={contatoEmergencia.nome}
                   onChange={(e) => setContatoEmergencia({
-                    ...contatoEmergencia, 
-                    nome: e.target.value})}
+                    ...contatoEmergencia,
+                    nome: e.target.value
+                  })}
                   required
                 />
               </div>
@@ -240,8 +341,9 @@ const AddPaciente = () => {
                   placeholder="Apenas números"
                   value={contatoEmergencia.telefone}
                   onChange={(e) => setContatoEmergencia({
-                    ...contatoEmergencia, 
-                    telefone: formatarTelefone(e.target.value)})}
+                    ...contatoEmergencia,
+                    telefone: formatarTelefone(e.target.value)
+                  })}
                   required
                 />
               </div>
@@ -266,6 +368,23 @@ const AddPaciente = () => {
             <h2 className="section-title">
               <FontAwesomeIcon icon={faMapMarkedAlt} /> Endereço Residencial
             </h2>
+
+            <div className="grupo-form">
+              <label htmlFor="endereco-cep">CEP*</label>
+              <div className="input-with-icon">
+                <FontAwesomeIcon icon={faLocationArrow} className="input-icon" />
+                <input
+                  type="text"
+                  id="endereco-cep"
+                  placeholder="12345678"
+                  name="cep"
+                  value={enderecoPessoal.cep}
+                  onChange={(e) => setEnderecoPessoal({ ...enderecoPessoal, cep: e.target.value })}
+                  required
+                />
+              </div>
+            </div>
+
             <div className="grupo-form">
               <label htmlFor="endereco-rua">Logradouro*</label>
               <div className="input-with-icon">
@@ -276,7 +395,7 @@ const AddPaciente = () => {
                   placeholder="Nome da rua"
                   name="logradouro"
                   value={enderecoPessoal.logradouro}
-                  onChange={(e) => setEnderecoPessoal({...enderecoPessoal, logradouro: e.target.value})}
+                  onChange={(e) => setEnderecoPessoal({ ...enderecoPessoal, logradouro: e.target.value })}
                   required
                 />
               </div>
@@ -292,23 +411,7 @@ const AddPaciente = () => {
                   placeholder="Número"
                   name="numero"
                   value={enderecoPessoal.numero}
-                  onChange={(e) => setEnderecoPessoal({...enderecoPessoal, numero: e.target.value})}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grupo-form">
-              <label htmlFor="endereco-cep">CEP*</label>
-              <div className="input-with-icon">
-                <FontAwesomeIcon icon={faLocationArrow} className="input-icon" />
-                <input
-                  type="text"
-                  id="endereco-cep"
-                  placeholder="12345678"
-                  name="cep"
-                  value={enderecoPessoal.cep}
-                  onChange={(e) => setEnderecoPessoal({...enderecoPessoal, cep: e.target.value})}
+                  onChange={(e) => setEnderecoPessoal({ ...enderecoPessoal, numero: e.target.value })}
                   required
                 />
               </div>
@@ -343,6 +446,23 @@ const AddPaciente = () => {
             <h2 className="section-title">
               <FontAwesomeIcon icon={faMapMarkedAlt} /> Endereço de Trabalho
             </h2>
+
+            <div className="grupo-form">
+              <label htmlFor="trabalho-cep">CEP*</label>
+              <div className="input-with-icon">
+                <FontAwesomeIcon icon={faLocationArrow} className="input-icon" />
+                <input
+                  type="text"
+                  id="trabalho-cep"
+                  placeholder="12345678"
+                  name="cep"
+                  value={enderecoTrabalho.cep}
+                  onChange={(e) => setEnderecoTrabalho({ ...enderecoTrabalho, cep: e.target.value })}
+                  required
+                />
+              </div>
+            </div>
+
             <div className="grupo-form">
               <label htmlFor="trabalho-rua">Logradouro*</label>
               <div className="input-with-icon">
@@ -353,7 +473,7 @@ const AddPaciente = () => {
                   placeholder="Nome da rua"
                   name="logradouro"
                   value={enderecoTrabalho.logradouro}
-                  onChange={(e) => setEnderecoTrabalho({...enderecoTrabalho, logradouro: e.target.value})}
+                  onChange={(e) => setEnderecoTrabalho({ ...enderecoTrabalho, logradouro: e.target.value })}
                   required
                 />
               </div>
@@ -369,23 +489,7 @@ const AddPaciente = () => {
                   placeholder="Número"
                   name="numero"
                   value={enderecoTrabalho.numero}
-                  onChange={(e) => setEnderecoTrabalho({...enderecoTrabalho, numero: e.target.value})}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grupo-form">
-              <label htmlFor="trabalho-cep">CEP*</label>
-              <div className="input-with-icon">
-                <FontAwesomeIcon icon={faLocationArrow} className="input-icon" />
-                <input
-                  type="text"
-                  id="trabalho-cep"
-                  placeholder="12345678"
-                  name="cep"
-                  value={enderecoTrabalho.cep}
-                  onChange={(e) => setEnderecoTrabalho({...enderecoTrabalho, cep: e.target.value})}
+                  onChange={(e) => setEnderecoTrabalho({ ...enderecoTrabalho, numero: e.target.value })}
                   required
                 />
               </div>
