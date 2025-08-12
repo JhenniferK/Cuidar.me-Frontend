@@ -7,7 +7,7 @@ const Agendamento = () => {
     const [abaAtiva, setAbaAtiva] = useState("novo");
 
     return (
-        <div className="page-container">
+        <div>
             <Agenda 
                 abaAtiva={abaAtiva}
                 onMudarAba={setAbaAtiva} 

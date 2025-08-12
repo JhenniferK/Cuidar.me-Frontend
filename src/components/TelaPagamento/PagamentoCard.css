@@ -1,0 +1,79 @@
+.pagamento-card-item {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info-section { 
+    display: flex; flex-direction: column; 
+    gap: 0.5rem; 
+}
+.main-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+}
+.patient-name { 
+    font-size: 1.1rem; 
+    font-weight: 600; 
+    color: #333; 
+}
+.status-badge { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    padding: 5px 12px; 
+    border-radius: 9999px; 
+    font-size: 0.85rem; 
+    font-weight: 500; 
+    color: white; 
+}
+.status-quitado { 
+    background-color: #22c55e; 
+}
+.status-pendente { 
+    background-color: #f59e0b; 
+}
+.status-vencido { 
+    background-color: #ef4444; 
+}
+.secondary-info { 
+    display: flex; 
+    align-items: baseline; 
+    gap: 0.75rem; 
+}
+.payment-amount { 
+    font-size: 1.25rem; 
+    font-weight: 600; 
+    color: #111; 
+}
+.payment-method { 
+    font-size: 1rem; 
+    color: #6b7280; 
+}
+.actions-section { 
+    display: flex; 
+    gap: 0.75rem; 
+}
+.action-button { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 10px 18px; 
+    background-color: #f3f4f6; 
+    border: 1px solid #e5e7eb; 
+    color: #4b5563; 
+    font-size: 0.9rem; 
+    font-weight: 500; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    transition: background-color 0.2s; 
+}
+.action-button:hover { 
+    background-color: #e5e7eb; 
+}

@@ -1,0 +1,84 @@
+.pagamento-container {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    padding-top: 5rem; 
+    box-sizing: border-box;
+}
+
+.pagamento-card{
+    background-color: white;
+    width: 100%;
+    max-width: 900px; 
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.pagamento-titulo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #a755f7;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.action-bar {
+  display: flex;
+  align-items: center; 
+  gap: 1rem; 
+}
+
+.search-wrapper {
+  flex-grow: 1;
+  position: relative; 
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.search-input {
+  width: 100%;
+  padding: 16px 20px 16px 50px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: 2px solid #a855f7;
+  border-color: transparent;
+  background-color: white;
+}
+.btn-novo-pagamento {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 25px;
+  background-color: #8b5cf6; 
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap; 
+  text-decoration: none; 
+  transition: background-color 0.2s;
+}
+
+.btn-novo-pagamento:hover {
+  background-color: #7c3aed; 
+}

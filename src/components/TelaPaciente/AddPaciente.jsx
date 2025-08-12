@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky, faGenderless, faHeart, faBook, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './AddPaciente.css';
 import { NavLink } from 'react-router-dom';

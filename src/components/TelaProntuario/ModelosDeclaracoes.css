@@ -1,0 +1,126 @@
+.tela-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.templates-grade {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.template-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 420px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.template-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.template-titulo {
+  font-size: 1.4rem;
+  color: #7318d4;
+  margin: 0;
+}
+
+.template-categoria {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+.template-categoria.prontuario {
+  background: linear-gradient(45deg, #d88cff, #a062ff);
+}
+
+.template-descricao {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 30px;
+  min-height: 40px;
+}
+
+.template-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.botao-usar-template {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1f1f8b, #5b00d2, #A259FF);
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.botao-usar-template:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.botao-imprimir {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.botao-imprimir:hover {
+  background-color: #e9ecef;
+  border-color: #ccc;
+}
+
+.botao-imprimir .fa-print {
+  font-size: 1.25rem; 
+}
+
+.icone-botao {
+  margin-right: 5px;
+}
+
+.documento-impressao {
+    display: none;
+}
+
+@media (max-width: 992px) {
+  .templates-grade {
+    grid-template-columns: 1fr;
+  }
+
+  .template-card {
+    width: 100%;
+    max-width: 450px;
+  }
+}
