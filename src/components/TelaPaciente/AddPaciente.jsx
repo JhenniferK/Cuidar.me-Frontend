@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky, faGenderless, faHeart, faBook, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './AddPaciente.css';
 import { NavLink } from 'react-router-dom';
@@ -13,7 +13,7 @@ const AddPaciente = () => {
   const [cpf, setCpf] = useState('');
   const [rg, setRg] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
-  const [telefonePessoal, setTelefonePessoal] = useState('');
+  const [telefone, setTelefone] = useState('');
   const [sexo, setSexo] = useState('');
   const [estadoCivil, setEstadoCivil] = useState('');
   const [grauInstrucao, setGrauInstrucao] = useState('');
@@ -117,14 +117,14 @@ const AddPaciente = () => {
       estadoCivil,
       grauInstrucao,
       profissao,
-      telefonePessoal,
+      telefone,
       enderecoPessoal,
       enderecoTrabalho,
       infoAdicionais,
       contatoEmergencia,
     };
 
-    axios.post('http://localhost:8081/paciente', paciente)
+    axios.post('http://localhost:8082/cuidarme/api/paciente/cadastrar', paciente)
       .then(() => {
         alert('Paciente cadastrado com sucesso!');
         navigate('/paciente');
@@ -309,8 +309,8 @@ const AddPaciente = () => {
                   type="text"
                   id="telefone"
                   placeholder="Apenas números"
-                  value={telefonePessoal}
-                  onChange={(e) => setTelefonePessoal(formatarTelefone(e.target.value))}
+                  value={telefone}
+                  onChange={(e) => setTelefone(formatarTelefone(e.target.value))}
                   required
                 />
               </div>

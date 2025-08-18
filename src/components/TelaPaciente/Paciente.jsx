@@ -12,7 +12,7 @@ const Paciente = () => {
     const [busca, setBusca] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:8081/paciente/listar')
+        axios.get('http://localhost:8082/paciente/listar')
             .then(response => {
                 setPacientes(response.data)
             })

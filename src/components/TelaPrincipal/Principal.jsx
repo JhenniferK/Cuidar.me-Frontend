@@ -22,7 +22,7 @@ const Principal = () => {
   return (
     <div className="principal">
       <main className="main">
-        <h1>Bem-vindo(a), {psicologo.nome}!</h1>
+        <h1>Bem-vindo(a), {psicologo.nome.split(" ")[0]}!</h1>
         <p>Veja suas informações e atividades.</p>
 
         <div className="card-container">
