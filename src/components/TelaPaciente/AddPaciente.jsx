@@ -1,13 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './AddPaciente.css';
-import { NavLink } from 'react-router-dom';
 
 const AddPaciente = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const[id, setId] = useState(null);
 
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
@@ -41,6 +43,28 @@ const AddPaciente = () => {
     cidade: '',
     estado: ''
   });
+
+  useEffect(() => {
+    const pacienteParaEditar = location.state?.pacienteParaEditar;
+
+     if(pacienteParaEditar) {
+    setId(pacienteParaEditar.id);
+    setNome(pacienteParaEditar.nome || '');
+    setCpf(formatarCPF(pacienteParaEditar.cpf || ''))
+    setRg(pacienteParaEditar.rg || '');
+    setDataNascimento(pacienteParaEditar.dataNascimento?.split('T')[0] || '');
+    setTelefonePessoal(formatarTelefone(pacienteParaEditar.telefonePessoal || ''));
+    setSexo(pacienteParaEditar.sexo || '');
+    setEstadoCivil(pacienteParaEditar.estadoCivil || '');
+    setGrauInstrucao(pacienteParaEditar.grauInstrucao || '');
+    setProfissao(pacienteParaEditar.profissao || '');
+    setContatoEmergencia(pacienteParaEditar.contatoEmergencia || { nome: '', telefone: '' });
+    setInfoAdicionais(pacienteParaEditar.infoAdicionais || '');
+    setEnderecoPessoal(pacienteParaEditar.enderecoPessoal || { cep: '', logradouro: '', numero: '', cidade: '', estado: '' });
+    setEnderecoTrabalho(pacienteParaEditar.enderecoTrabalho || { cep: '', logradouro: '', numero: '', cidade: '', estado: '' });
+    }
+  }, [location.state])
+
 
   const formatarCPF = (valor) => {
     valor = valor.replace(/\D/g, '').slice(0, 11);
@@ -94,13 +118,15 @@ const AddPaciente = () => {
   };
 
   useEffect(() => {
-    if (enderecoPessoal.cep.length === 8) {
+    const cepLimpo = enderecoPessoal.cep.replace(/\D/g, ''); 
+    if (cepLimpo.length === 8) {
       buscarEnderecoPorCep(enderecoPessoal.cep, 'enderecoPessoal');
     }
   }, [enderecoPessoal.cep]);
 
   useEffect(() => {
-    if (enderecoTrabalho.cep.length === 8) {
+    const cepLimpo = enderecoTrabalho.cep.replace(/\D/g, ''); 
+    if (cepLimpo.length === 8) {
       buscarEnderecoPorCep(enderecoTrabalho.cep, 'enderecoTrabalho');
     }
   }, [enderecoTrabalho.cep]);
@@ -108,31 +134,49 @@ const AddPaciente = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const cpfSemFormatacao = cpf.replace(/\D/g, '');
+    const telefoneSemFormatacao = telefonePessoal.replace(/\D/g, '');
+
     const paciente = {
       nome,
-      cpf,
+      cpf: cpfSemFormatacao,
       rg,
       dataNascimento,
       sexo,
       estadoCivil,
       grauInstrucao,
       profissao,
-      telefonePessoal,
+      telefonePessoal: telefoneSemFormatacao,
       enderecoPessoal,
       enderecoTrabalho,
       infoAdicionais,
-      contatoEmergencia,
+      contatoEmergencia: {
+        telefone: contatoEmergencia.telefone.replace(/\D/g, '')
+      },
     };
 
-    axios.post('http://localhost:8081/paciente', paciente)
-      .then(() => {
-        alert('Paciente cadastrado com sucesso!');
-        navigate('/paciente');
-      })
-      .catch((error) => {
-        console.error('Erro ao cadastrar paciente:', error);
-        alert('Erro ao cadastrar paciente.');
-      });
+    if(id) {
+      const urlDeEdicao = `http://localhost:8081/paciente/atualizar/cpf/${cpfSemFormatacao}`;
+       axios.put(urlDeEdicao, paciente)
+        .then(() => {
+            alert("Paciente atualizado com sucesso!");
+            navigate('/paciente');
+        })
+        .catch((error) => {
+            console.error('Erro detalhado ao atualizar paciente:', error.response || error);
+            alert('Erro ao atualizar paciente. Verifique o console para detalhes.');
+        });
+    } else {
+      axios.post('http://localhost:8081/paciente', paciente)
+        .then(() => {
+            alert('Paciente cadastrado com sucesso!');
+            navigate('/paciente');
+        })
+        .catch((error) => {
+            console.error('Erro detalhado ao cadastrar paciente:', error.response || error);
+            alert('Erro ao cadastrar paciente. Verifique o console para detalhes.');
+        });
+      }
   };
 
   return (

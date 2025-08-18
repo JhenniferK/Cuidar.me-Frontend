@@ -1,4 +1,6 @@
-import React, { useState } from 'react'; 
+import { useState } from 'react'; 
+import axios from 'axios';
+import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Pagamento.css'; 
 import { faCreditCard } from '@fortawesome/free-regular-svg-icons';
@@ -13,10 +15,33 @@ const pagamentoData = [
 ];
 
 const Pagamento = () => {
-    const [busca, setBusca] = useState("");
 
+    const [pacientes, setPacientes] = useState([]);
+    const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
+
+    const [busca, setBusca] = useState("");
     const [isFormVisible, setIsFormVisible] = useState(false);
 
+    useEffect(() => {
+        const buscarPacientes = async () => {
+            try {
+                const response = await axios.get('http://localhost:8081/paciente/listar');
+                setPacientes(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar a lista de pacientes', error);
+            }
+        };
+        buscarPacientes();
+    }, []);
+
+    const pacientesFiltrados = busca.length > 0 ? pacientes
+        .filter(paciente => paciente.nome.toLowerCase().includes(busca.toLowerCase()))
+        : [];
+
+    const handleSelecionarPaciente = (paciente) => {
+        setPacienteSelecionado(paciente);
+        setBusca(paciente.nome);
+    };
 
     return (
         <div className="pagamento-container">
@@ -32,9 +57,29 @@ const Pagamento = () => {
                             className="search-input"
                             placeholder="Buscar paciente"
                             value={busca}
-                            onChange={(e) => setBusca(e.target.value)}
+                            onChange={(e) => {
+                            setBusca(e.target.value);
+                                if (pacienteSelecionado) {
+                                    setPacienteSelecionado(null);
+                                }
+                            }}
+                            required
                         />
                     </div>
+
+                    {pacientesFiltrados.length > 0 && !pacienteSelecionado && (
+                        <div className="resultados-busca">
+                            {pacientesFiltrados.map(paciente => (
+                                <div
+                                    key={paciente.id}
+                                     className="resultado-item"
+                                    onClick={() => handleSelecionarPaciente(paciente)}
+                                >
+                                    {paciente.nome}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                      <button className="btn-novo-pagamento" onClick={() => setIsFormVisible(true)}>
                         <FontAwesomeIcon icon={faPlus} /> Novo pagamento
                     </button>

@@ -1,17 +1,28 @@
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import './NovoAgendamento.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 const NovoAgendamento = () => {
 
+    const navigate = useNavigate();
+
     const [pacientes, setPacientes] = useState([]);
     const [busca, setBusca] = useState("");
+
+    const [pacienteSelecionadoId, setPacienteSelecionadoId] = useState("");
+    const [data, setData] = useState("");
+    const [horario, setHorario] = useState("");
+    const [tipoAtendimento, setTipoAtendimento] = useState("")
+    const [localidade, setLocalidade] = useState("")
+    const [observacoes, setObservacoes] = useState("")
+
     const selecionarPaciente = (paciente) => {
         setBusca(paciente.nome);
+        setPacienteSelecionadoId(paciente.id);
         setMostrarSugestoes(false);
     }
     const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
@@ -26,6 +37,39 @@ const NovoAgendamento = () => {
             });
     }, []);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+            console.log("Status de validação:");
+            console.log("ID do Paciente:", pacienteSelecionadoId);
+            console.log("Data:", data);
+            console.log("Horário:", horario);
+            console.log("Tipo:", tipoAtendimento);
+        if(!pacienteSelecionadoId || !data || !horario || !tipoAtendimento) {
+            alert("Preencha todos os campos obrigatórios")
+            return
+        }
+
+        const novoAgendamento = {
+        paciente: {id: pacienteSelecionadoId},
+        data: data,
+        horario: horario,
+        tipoAtendimento: tipoAtendimento,
+        localizacao: localidade,
+        observacoes: observacoes
+        }
+
+        try {
+            await axios.post('http://localhost:8081/atendimento', novoAgendamento);
+
+            alert("Agendamento realizado com sucessoo")
+            navigate('/consultasAgendadas')
+        } catch (error) {
+            console.error("Erro ao agendar consulta: ", error)
+            alert("Não foi possível realizar o agendamento, verifique o que aconteceu")
+        }
+    };
+
     return (
         <div className='form-container'>
             <h1 className='form-titulo'>
@@ -33,7 +77,7 @@ const NovoAgendamento = () => {
                 Agendamento de Consulta
             </h1>
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <section className="form-section">
                     <h2 className="section-title">Paciente</h2>
                     <div className="input-busca-container">
@@ -47,6 +91,7 @@ const NovoAgendamento = () => {
                                     setBusca(e.target.value); 
                                     setMostrarSugestoes(true); 
                                 }}
+                                required
                             />
                         </div>
 
@@ -60,7 +105,8 @@ const NovoAgendamento = () => {
                                         <li key={paciente.id} onClick={() => selecionarPaciente(paciente)}>
                                             {paciente.nome} - {paciente.cpf}
                                         </li>
-                                    ))}
+                                    ))
+                                }
                             </ul>
                         )}
                     </div>
@@ -73,13 +119,13 @@ const NovoAgendamento = () => {
                             <label htmlFor="data">Data</label>
                             <div className="input-with-icon">
                                 <FontAwesomeIcon icon={faCalendar} className="input-icon" />
-                                <input type="date" id="data" placeholder="dd/mm/aaaa" />
+                                <input type="date" id="data" value={data} onChange={(e) => setData(e.target.value)} required/>
                             </div>
                         </div>
                         <div className="form-field">
                             <label htmlFor="horario">Horário</label>
                             <div className="input-with-icon">
-                                <select id="horario">
+                                <select id="horario" value={horario} onChange={(e) => setHorario(e.target.value)} required>
                                     <option value="">Selecione o horário</option>
                                     <option value="08:00">08:00</option>
                                     <option value="09:00">09:00</option>
@@ -95,7 +141,7 @@ const NovoAgendamento = () => {
                     <div className="form-field">
                         <label htmlFor="tipo">Tipo de Atendimento</label>
                         <div className="input-with-icon">
-                            <select id="tipo">
+                            <select id="tipo" value={tipoAtendimento} onChange={(e) => setTipoAtendimento(e.target.value)} required>
                                 <option value="">Selecione o tipo</option>
                                 <option value="online">Online</option>
                                 <option value="presencial">Presencial</option>
@@ -105,28 +151,14 @@ const NovoAgendamento = () => {
 
                     <div className="form-field">
                         <label htmlFor="localizacao">Localidade</label>
-                        <input type="text" id="localizacao" placeholder="Ex: Lagoa de Roça-PB, Rua Manoel Carlos" />
+                        <input type="text" id="localizacao" placeholder="Ex: Lagoa de Roça-PB, Rua Manoel Carlos" value={localidade} onChange={(e) => setLocalidade(e.target.value)}/>
                     </div>
 
                     <div className="form-field">
                         <label htmlFor="observacoes">Observações</label>
-                        <textarea id="observacoes" rows="4" placeholder="informações adicionais sobre a consulta"></textarea>
+                        <textarea id="observacoes" rows="4" placeholder="informações adicionais sobre a consulta" value={observacoes} onChange={(e) => setObservacoes(e.target.value)}></textarea>
                     </div>
                 </section>
-
-                <section className="form-section">
-                    <h2 className="section-title">Notificações</h2>
-                    <div className="notification-toggle">
-                        <label className="switch">
-                            <input type="checkbox" />
-                            <span className="slider round"></span>
-                        </label>
-                        <span>Enviar lembrete por WhatsApp</span>
-                    </div>
-                    <p className="notification-info">
-                        <FontAwesomeIcon icon={faBell} />Confirmação automática será enviada por WhatsApp</p>
-                </section>
-
                 <button type="submit" className="submit-button">
                     Agendar Consulta
                 </button>

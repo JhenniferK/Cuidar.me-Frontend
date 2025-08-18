@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileLines, faPrint } from '@fortawesome/free-solid-svg-icons';
 import './ProntuarioCard.css';
 
-const ProntuarioCard = ({ prontuario }) => {
+const ProntuarioCard = ({ prontuario, onVerClick, onImprimirClick }) => {
   return (
     <div className="prontuario-card">
         <div className="card-header">
@@ -14,15 +14,15 @@ const ProntuarioCard = ({ prontuario }) => {
 
      <div className="card-body">
         <p>
-          <strong>Consulta de {prontuario.data}:</strong> {prontuario.diagnostico}
+          <strong>Consulta de {prontuario.dataRegistro}:</strong> {prontuario.demanda}
         </p>
       </div>
       <div className="card-footer">
-        <button className="card-button usar-template">
+        <button className="card-button usar-template" onClick={() => onVerClick(prontuario.id)}>
           <FontAwesomeIcon icon={faFileLines} />
           Ver
         </button>
-        <button className="card-button imprimir">
+        <button className="card-button imprimir" onClick={() => onImprimirClick(prontuario)}>
           <FontAwesomeIcon icon={faPrint} />
         </button>
       </div>

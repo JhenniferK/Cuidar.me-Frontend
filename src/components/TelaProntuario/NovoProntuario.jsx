@@ -1,36 +1,72 @@
 import './NovoProntuario.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClipboardUser, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 
 const NovoProntuario = () => {
-    const navigate = useNavigate;
+    const navigate = useNavigate();
 
     const [dataRegistro, setDataRegistro] = useState('');
     const [horario, setHorario] = useState('');
     const [demanda, setDemanda] = useState('');
     const [tecnicasUtilizadas, settecnicasUtilizadas] = useState('');
-    const [pacienteSelecionado, setPacienteSelecionado] = useState('')
+    const [observacoes, setObservacoes] = useState('');
 
-    const [pacientes] = useState([]);
     const [busca, setBusca] = useState("");
-    const selecionarPaciente = (paciente) => {
-        setBusca(paciente.nome);
-        setPacienteSelecionado(paciente);
-        setMostrarSugestoes(false);
-    }
+    const [pacientes, setPacientes] = useState([]);
     const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
+    const [pacienteSelecionadoId, setPacienteSelecionadoId] = useState(null);
 
-    const handleSubmit = (event) => {
-    event.preventDefault();
-        if (!pacienteSelecionado) {
+    useEffect(() => {
+        if(busca) {
+            axios.get('http://localhost:8081/paciente/listar')
+                .then(response => {
+                    setPacientes(response.data)
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar pacientes:', error)
+            });
+        }  else {
+            setPacientes([]);
+        }
+    }, [busca]);
+
+    const selecionarPaciente = (paciente) => {
+    setBusca(paciente.nome); 
+    setPacienteSelecionadoId(paciente.id); 
+    setMostrarSugestoes(false); 
+    };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!pacienteSelecionadoId) {
             alert("Por favor, selecione um paciente da lista.");
             return;
         }
-        navigate('/prontuarios'); 
-    }   
-    
+
+        const novoProntuario = {
+            paciente: { pacienteSelecionadoId }, 
+            data: dataRegistro,
+            horario: horario,
+            demanda: demanda,
+            tecnicasUtilizadas: tecnicasUtilizadas,
+            observacoes: observacoes
+        };
+
+        try {
+            await axios.post('POST http://localhost:8081/prontuario', novoProntuario);
+            alert('Prontuário criado com sucesso!');
+            navigate('/prontuario'); 
+        } catch (error) {
+            console.error("Erro ao criar prontuário:", error);
+            alert("Falha ao criar o prontuário. Verifique o console.");
+        }
+
+    };
+
     return (
         <div className="novoProntuario-container">
             <div className="novoProntuario-card">
@@ -51,10 +87,10 @@ const NovoProntuario = () => {
                                     placeholder="Buscar paciente"
                                     value={busca}
                                     onChange={(e) => { 
-                                    setBusca(e.target.value); 
+                                    setBusca(e.target.value);
                                     setMostrarSugestoes(true); 
-                                    setPacienteSelecionado(null);
                                     }}
+                                    required
                                 />
                             </div>
                 
@@ -128,8 +164,8 @@ const NovoProntuario = () => {
                         </div>
 
                         <div className="form-field">
-                            <label htmlFor="observacoes">Infos Adicionais</label>
-                            <textarea id="observacoes" rows="4" placeholder="Outras informações, evolução do paciente, encaminhamentos, etc"></textarea>
+                            <label htmlFor="observacoes">Observações</label>
+                            <textarea id="observacoes" rows="4" placeholder="Outras informações, evolução do paciente, encaminhamentos, etc" value={observacoes} onChange={(e) => setObservacoes(e.target.value)}></textarea>
                         </div>
                     </section>
                     <button type="submit" className="submit-button">

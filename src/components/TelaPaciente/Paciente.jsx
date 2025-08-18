@@ -86,7 +86,7 @@ const Paciente = () => {
                 </section>
 
                 <section className="lista-pacientes">
-                    {pacientes.map(paciente => (
+                    {pacientesFiltrados.map(paciente => (
                         <CardPaciente key={paciente.id} paciente={paciente} />
                     ))}
                 </section>

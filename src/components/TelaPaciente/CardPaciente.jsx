@@ -1,17 +1,22 @@
 import './Paciente.css';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faCalendarAlt, faClock, faEye, faEdit, faCalendar, faMapMarkerAlt, faHospital, faInfoCircle, faGenderless, faHeart, faBriefcase, faBookOpen, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 const CardPaciente = ({ paciente }) => {
+    const navigate = useNavigate();
 
     const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
-
     const { nome, dataNascimento, telefonePessoal } = paciente;
 
     const toggleDetalhes = () => {
         setMostrarDetalhes(prev => !prev);
     };
+
+    const EditarPaciente = () => {
+        navigate('/addPaciente', {state: {pacienteParaEditar: paciente}})
+    }
 
     const calcularIdade = (dataNascimento) => {
         if (!dataNascimento) return "-";
@@ -57,7 +62,7 @@ const CardPaciente = ({ paciente }) => {
 
             <div className="card-footer">
                 <button className="btn-detalhes" onClick={toggleDetalhes}> <FontAwesomeIcon icon={faEye} /> {mostrarDetalhes ? 'Ocultar detalhes' : 'Ver detalhes'} </button>
-                <button className="btn-editar"><FontAwesomeIcon icon={faEdit} /> Editar</button>
+                <button className="btn-editar" onClick={EditarPaciente}><FontAwesomeIcon icon={faEdit} /> Editar</button>
             </div>
 
             {mostrarDetalhes && (

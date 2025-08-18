@@ -1,49 +1,37 @@
 import ProntuarioCard from './ProntuarioCard';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
 import './ProntuarioList.css'
 
-const prontuariosData = [
-  {
-    id: 1,
-    nome: 'João Silva Santos',
-    data: '14/01/2024',
-    tipo: 'Terapia Individual',
-    diagnostico: 'Transtorno de Ansiedade Generalizada'
-  },
-  {
-    id: 2,
-    nome: 'Maria Oliveira Costa',
-    data: '13/01/2024',
-    tipo: 'Sessão de Retorno',
-    diagnostico: 'Episódio Depressivo Moderado'
-  },
-  {
-    id: 3,
-    nome: 'Pedro Almeida Lima',
-    data: '12/01/2024',
-    tipo: 'Avaliação Psicológica',
-    diagnostico: 'Transtorno do Pânico'
-  },
-  {
-    id: 4,
-    nome: 'Ana Paula Ferreira',
-    data: '11/01/2024',
-    tipo: 'Terapia de Casal',
-    diagnostico: 'Dificuldades de Relacionamento'
-  }
-];
+const ProntuarioList = ({ busca, onVerProntuario, onImprimirProntuario }) => {
 
-const ProntuarioList = () => {
-    const [busca] = useState(""); 
+    const [prontuarios, setProntuarios] = useState([]);
 
-     const prontuariosFiltrados = prontuariosData.filter(p =>
-        p.nome.toLowerCase().includes(busca.toLowerCase()) ||
-        p.tipo.toLowerCase().includes(busca.toLowerCase())
+    useEffect(() => {
+        axios.get('http://localhost:8081/prontuario')
+            .then(response => {
+                setProntuarios(response.data);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar a lista de prontuários:", error);
+            });
+    }, []); 
+
+    const prontuariosFiltrados = prontuarios.filter(p =>
+        p.paciente && p.paciente.nome.toLowerCase().includes(busca.toLowerCase()) ||
+        p.tipoAtendimento && p.tipoAtendimento.toLowerCase().includes(busca.toLowerCase())
     );
+
     return (
         <div className="prontuarios-grid">
             {prontuariosFiltrados.map((prontuario) => (
-                <ProntuarioCard key={prontuario.id} prontuario={prontuario} />
+                <ProntuarioCard 
+                key={prontuario.id} 
+                prontuario={prontuario} 
+                onVerClick={onVerProntuario}
+                onImprimirClick={onImprimirProntuario}
+                />
             ))}
         </div>
     );
