@@ -16,10 +16,10 @@ const Paciente = () => {
 
         if (psicologoSalvo) {
             const psicologo = JSON.parse(psicologoSalvo);
-            const psicologoId = psicologo.lookupId;
+            const psicologoLookupId = psicologo.lookupId;
 
-            if (psicologoId) {
-                axios.get(`http://localhost:8082/cuidarme/api/psicologos/${psicologoId}/pacientes`)
+            if (psicologoLookupId) {
+                axios.get(`http://localhost:8082/cuidarme/api/psicologo/${psicologoLookupId}/paciente`)
                     .then(response => {
                         setPacientes(response.data);
                     })

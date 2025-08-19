@@ -7,7 +7,7 @@ const Principal = () => {
   const [psicologo, setPsicologo] = useState(null);
 
   useEffect(() => {
-    const dadosSalvos = localStorage.getItem('usuarioLogado');
+    const dadosSalvos = localStorage.getItem('psicologo');
     if (dadosSalvos) {
       setPsicologo(JSON.parse(dadosSalvos));
     } else {

@@ -21,13 +21,25 @@ const NovoAgendamento = () => {
     const [localidade, setLocalidade] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:8082/cuidarme/api/paciente/listar')
-            .then(response => {
-                setPacientes(response.data);
-            })
-            .catch(error => {
-                console.error('Erro ao buscar pacientes:', error);
-            });
+        const psicologoSalvo = localStorage.getItem('psicologo');
+
+        if (psicologoSalvo) {
+            const psicologo = JSON.parse(psicologoSalvo);
+            const psicologoId = psicologo.lookupId;
+
+            if (psicologoId) {
+                axios.get(`http://localhost:8082/cuidarme/api/psicologos/${psicologoId}/pacientes`)
+                    .then(response => {
+                        setPacientes(response.data);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar pacientes do psicólogo:', error);
+                    });
+            }
+        } else {
+            alert("Sessão expirada. Faça o login novamente.");
+            navigate('/');
+        }
     }, []);
 
     const selecionarPaciente = (paciente) => {

@@ -1,84 +1,81 @@
 import './ConsultasAgendadas.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faMap } from '@fortawesome/free-regular-svg-icons';
-import { faVideo, faVoicemail } from '@fortawesome/free-solid-svg-icons';
+import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faClock} from '@fortawesome/free-regular-svg-icons';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-
-const dadosPacientes = [
-    {
-        id: 1,
-        nome: 'Maria Silva',
-        status: 'Confirmado',
-        data: 'domingo, 14 de janeiro de 2024',
-        horario: '09:00',
-        localizacao: 'Campina Grande-PB',
-        tipo: 'Presencial',
-        email: 'maria@email.com',
-        telefone: '(11) 99999-1111',
-        observacao: 'Primeira consulta',
-    },
-      {
-        id: 2,
-        nome: 'Joyce',
-        status: 'Agendado',
-        data: 'domingo, 14 de janeiro de 2024',
-        horario: '09:00',
-        localizacao: 'Campina Grande-PB',
-        tipo: 'Presencial',
-        email: 'joyce@email.com',
-        telefone: '(11) 99999-1111',
-        observacao: 'Primeira consulta',
-    },
-      {
-        id: 3,
-        nome: 'Jhennifer',
-        status: 'Agendado',
-        data: 'domingo, 14 de janeiro de 2024',
-        horario: '09:00',
-        localizacao: 'Campina Grande-PB',
-        tipo: 'Presencial',
-        email: 'jhennifer@email.com',
-        telefone: '(11) 99999-1111',
-        observacao: 'Primeira consulta',
-    },
-];
+import { useEffect, useState } from 'react'; 
+import axios from 'axios'; 
 
 const ConsultasAgendadas = () => {
+    const [consultas, setConsultas] = useState([]);
+
+    useEffect(() => {
+        const psicologoSalvo = localStorage.getItem('psicologo');
+        if (psicologoSalvo) {
+            const psicologo = JSON.parse(psicologoSalvo);
+            console.log("1. Psicólogo lido do localStorage:", psicologo);
+            const psicologoLookupId = psicologo.lookupId;
+            console.log("2. ID que será usado na URL:", psicologoLookupId);
+            const url = `http://localhost:8082/cuidarme/psicologo/${psicologoLookupId}/atendimento`;
+            
+            axios.get(url)
+                .then(response => {
+                    console.log("3. Resposta recebida da API:", response.data);
+                    setConsultas(response.data);
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar agendamentos:", error);
+                });
+        }
+    }, []);
+    
+    const formatarDataHora = (dataString) => {
+        if (!dataString) return { data: '-', horario: '-' };
+        const dataObj = new Date(dataString);
+        const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+        const horarioFormatado = dataObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        return { data: dataFormatada, horario: horarioFormatado };
+    };
+
     return (
         <div className="consultas-container">
             <h1 className="main-titulo">
                 <FontAwesomeIcon icon={faCalendar}/> Consultas Agendadas
             </h1>
-            {dadosPacientes.map((consulta) => (
-                <div className="dadosPacientes-card" key={consulta.id}>
-                    <div card-header>
-                        <div className="paciente-info">
-                            <h2>{consulta.nome}</h2>
-                            <span className={`status-badge-status-${consulta.status.toLowerCase()}`}>{consulta.status}</span>
-                        </div>
-                    </div>
+            
+            {consultas.map((consulta) => {
+                const { data, horario } = formatarDataHora(consulta.data);
+                const tipo = consulta.localidade === 'Online' ? 'Online' : 'Presencial';
 
-                    <div className="card-body-consultas">
-                        <div className="detalhes-consulta">
-                            <p><FontAwesomeIcon icon={faCalendar} /> {consulta.data}</p>
-                            <p><FontAwesomeIcon icon={faClock} /> {consulta.horario}</p>
-                            <p>
-                                {consulta.tipo === 'Online' ? <FontAwesomeIcon icon={faVideo} /> : <FontAwesomeIcon icon={faMap} />}
-                                {consulta.localizacao}
-                                <span className="consulta-type-badge">{consulta.tipo}</span>
-                            </p>
+                return (
+                    <div className="dadosPacientes-card" key={consulta.lookupId}>
+                        <div className="card-header">
+                            <div className="paciente-info">
+                                <h2>{consulta.paciente ? consulta.paciente.nome : 'Paciente não encontrado'}</h2>
+                                <span className={`status-badge-status-${consulta.status.toLowerCase()}`}>{consulta.status}</span>
+                            </div>
                         </div>
 
-                        
+                        <div className="card-body-consultas">
+                            <div className="detalhes-consulta">
+                                <p><FontAwesomeIcon icon={faCalendar} /> {data}</p>
+                                <p><FontAwesomeIcon icon={faClock} /> {horario}</p>
+                                <p>
+                                    {tipo === 'Online' ? <FontAwesomeIcon icon={faVideo} /> : <FontAwesomeIcon icon={faMap} />}
+                                    {consulta.localidade}
+                                    <span className="consulta-type-badge">{tipo}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="card-footer">
+                            <button className="footer-button">Enviar Lembrete</button>
+                            <button className="footer-button">Remarcar</button>
+                            <button className="footer-button">Cancelar</button>
+                        </div>
                     </div>
-                    <div className="card-footer">
-                        <button className="footer-button">Enviar Lembrete</button>
-                        <button className="footer-button">Remarcar</button>
-                        <button className="footer-button">Cancelar</button>
-                    </div>
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 };
