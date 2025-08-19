@@ -19,7 +19,7 @@ const Paciente = () => {
             const psicologoLookupId = psicologo.lookupId;
 
             if (psicologoLookupId) {
-                axios.get(`http://localhost:8082/cuidarme/api/psicologo/${psicologoLookupId}/paciente`)
+                axios.get(`http://localhost:8082/cuidarme/api/psicologo/${psicologoLookupId}/pacientes`)
                     .then(response => {
                         setPacientes(response.data);
                     })

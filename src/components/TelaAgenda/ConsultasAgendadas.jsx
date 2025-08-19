@@ -11,16 +11,15 @@ const ConsultasAgendadas = () => {
 
     useEffect(() => {
         const psicologoSalvo = localStorage.getItem('psicologo');
+
         if (psicologoSalvo) {
             const psicologo = JSON.parse(psicologoSalvo);
-            console.log("1. Psicólogo lido do localStorage:", psicologo);
             const psicologoLookupId = psicologo.lookupId;
-            console.log("2. ID que será usado na URL:", psicologoLookupId);
-            const url = `http://localhost:8082/cuidarme/psicologo/${psicologoLookupId}/atendimento`;
+
+            const url = `http://localhost:8082/cuidarme/api/psicologo/${psicologoLookupId}/atendimento`;
             
             axios.get(url)
                 .then(response => {
-                    console.log("3. Resposta recebida da API:", response.data);
                     setConsultas(response.data);
                 })
                 .catch(error => {
@@ -49,7 +48,7 @@ const ConsultasAgendadas = () => {
 
                 return (
                     <div className="dadosPacientes-card" key={consulta.lookupId}>
-                        <div className="card-header">
+                        <div className="card-header-agendamento">
                             <div className="paciente-info">
                                 <h2>{consulta.paciente ? consulta.paciente.nome : 'Paciente não encontrado'}</h2>
                                 <span className={`status-badge-status-${consulta.status.toLowerCase()}`}>{consulta.status}</span>

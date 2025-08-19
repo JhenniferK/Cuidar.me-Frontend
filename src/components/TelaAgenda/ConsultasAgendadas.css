@@ -4,7 +4,7 @@
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     max-width: 900px;
-    margin: 0 auto;
+    margin: 40px auto;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -15,6 +15,7 @@
     align-items: center;
     gap: 0.8rem;
     margin-bottom: 2rem;
+    font-weight: 600;
 }
 
 .dadosPacientes-card {
@@ -23,42 +24,65 @@
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.card-header {
+.dadosPacientes-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-header-agendamento {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding-bottom: 1rem;
-    margin-bottom: 1rem;
 }
 
-.paciente-info h2{
+.paciente-info h2 {
     margin: 0 0 0.5rem 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #333;
+    color: #a755f7; 
 }
 
-.status-badge {
+.status-badge-status-agendado { 
+    background-color: #007bff;
     padding: 0.3rem 0.8rem;
     border-radius: 12px;
     font-size: 0.8rem;
     font-weight: 500;
     color: white;
-    display: inline-block;
+}
+.status-badge-status-confirmado { 
+    background-color: #28a745;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
+}
+.status-badge-status-cancelado { 
+    background-color: #dc3545;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
 }
 
-.status-confirmado { background-color: #28a745; }
-.status-agendado { background-color: #007bff; }
-.status-cancelado { background-color: #dc3545; }
 
 .card-body-consultas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
     border-top: 1px solid #eee;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
+}
+
+.detalhes-consulta p {
+    margin: 0.8rem 0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 .consulta-type-badge {
@@ -66,35 +90,15 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 0.2rem 0.6rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     margin-left: 0.8rem;
-}
-
-.detalhes-consulta p, .detalhes-contato p {
-    margin: 0.6rem 0;
-    color: #555;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.consultas-type-badge {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 0.2rem 0.6rem;
-    font-size: 0.8rem;
-    margin-left: 0.8rem;
-}
-
-.observacoes {
-    font-style: italic;
-    color: #666;
+    font-weight: 500;
+    color: #444;
 }
 
 .card-footer {
     margin-top: 1.5rem;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     border-top: 1px solid #eee;
     display: flex;
     flex-wrap: wrap;
@@ -102,15 +106,18 @@
 }
 
 .footer-button {
-    background-color: #de8dec;
-    border: 1px solid #ddd;
+    background-color: #f8f0ff;
+    color: #a755f7;
+    border: 1px solid #e9d5ff;
     border-radius: 8px;
     padding: 0.6rem 1rem;
     cursor: pointer;
     font-weight: 500;
-    transition: background-color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .footer-button:hover {
-    background-color: #de8dec;
+    background-color: #a755f7;
+    color: white;
 }

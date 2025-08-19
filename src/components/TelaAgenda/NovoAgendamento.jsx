@@ -28,7 +28,7 @@ const NovoAgendamento = () => {
             const psicologoId = psicologo.lookupId;
 
             if (psicologoId) {
-                axios.get(`http://localhost:8082/cuidarme/api/psicologos/${psicologoId}/pacientes`)
+                axios.get(`http://localhost:8082/cuidarme/api/psicologo/${psicologoId}/pacientes`)
                     .then(response => {
                         setPacientes(response.data);
                     })
