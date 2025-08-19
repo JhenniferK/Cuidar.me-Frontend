@@ -12,13 +12,24 @@ const Paciente = () => {
     const [busca, setBusca] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:8082/cuidarme/api/paciente/listar')
-            .then(response => {
-                setPacientes(response.data)
-            })
-            .catch(error => {
-                console.error('Erro ao buscar pacientes:', error)
-            });
+        const psicologoSalvo = localStorage.getItem('psicologo');
+
+        if (psicologoSalvo) {
+            const psicologo = JSON.parse(psicologoSalvo);
+            const psicologoId = psicologo.lookupId;
+
+            if (psicologoId) {
+                axios.get(`http://localhost:8082/cuidarme/api/psicologos/${psicologoId}/pacientes`)
+                    .then(response => {
+                        setPacientes(response.data);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar pacientes do psicólogo:', error);
+                    });
+            }
+        } else {
+            console.error("Nenhum psicólogo logado encontrado.");
+        }
     }, []);
 
     const pacientesFiltrados = pacientes.filter(paciente =>

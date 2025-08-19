@@ -39,6 +39,11 @@ const NovoAgendamento = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (tipo === "presencial" && !localidade) {
+            alert("Selecione a localidade do atendimento")
+            return
+        }
+        
         if (!pacienteSelecionado) {
             alert("Selecione um paciente!");
             return;

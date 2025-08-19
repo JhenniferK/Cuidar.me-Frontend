@@ -109,6 +109,17 @@ const AddPaciente = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const psicologoSalvo = localStorage.getItem('psicologo');
+
+    if (!psicologoSalvo) {
+      alert("Sessão expirada ou erro. Por favor, faça o login novamente.");
+      navigate('/login');
+      return;
+    }
+
+    const psicologo = JSON.parse(psicologoSalvo);
+    const psicologoId = psicologo.lookupId;
+
     const paciente = {
       nome,
       cpf,
@@ -122,15 +133,18 @@ const AddPaciente = () => {
       enderecoPessoal,
       enderecoTrabalho,
       infoAdicionais,
-      contatoEmergencia
+      contatoEmergencia,
+      psicologo: {
+        lookupId: psicologoId
+      }
     };
 
     axios.post('http://localhost:8082/cuidarme/api/paciente/cadastrar', paciente)
-      .then(() => {
+      .then(response => {
         alert('Paciente cadastrado com sucesso!');
         navigate('/paciente');
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Erro ao cadastrar paciente:', error);
         alert('Erro ao cadastrar paciente.');
       });

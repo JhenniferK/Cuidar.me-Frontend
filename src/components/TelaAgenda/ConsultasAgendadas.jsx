@@ -69,18 +69,13 @@ const ConsultasAgendadas = () => {
                                 <span className="consulta-type-badge">{consulta.tipo}</span>
                             </p>
                         </div>
-                         <div className="detalhes-contato">
-                            <p>< FontAwesomeIcon icon={faVoicemail} /> {consulta.email}</p>
-                            <p><FontAwesomeIcon icon={faPhone} /> {consulta.telefone}</p>
-                            {consulta.observacao && (
-                                <p className="observacoes"><strong>Observações:</strong> {consulta.observacao}</p>
-                            )}
-                        </div>
+
+                        
                     </div>
                     <div className="card-footer">
                         <button className="footer-button">Enviar Lembrete</button>
-                        <button className="footer-button">Confirmar Consulta</button>
                         <button className="footer-button">Remarcar</button>
+                        <button className="footer-button">Cancelar</button>
                     </div>
                 </div>
             ))}
