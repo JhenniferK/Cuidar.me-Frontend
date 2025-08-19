@@ -1,6 +1,7 @@
 import './Prontuario.css'
-import React, {forwardRef, useImperativeHandle} from 'react';
+import {forwardRef, useImperativeHandle} from 'react';
 import logonome from '../../assets/logonome.png';
+import Prontuario from './Prontuario';
 
 const ProntuarioParaImpressao = forwardRef(({ dados }, ref) => {
     useImperativeHandle(ref, () => ({
@@ -10,18 +11,14 @@ const ProntuarioParaImpressao = forwardRef(({ dados }, ref) => {
     }));
 
     if(!dados || !dados.paciente) {
-        return (
-            <div className="print-componente">
-                <p>Selecione um paciente e preencha os dados para gerar o prontuário</p>
-            </div>
-        );
+        return null;
     } 
+
     const formatarData = (dataStr) => {
     if (!dataStr) return 'N/A';
     const data = new Date(dataStr + '00:00:00'); 
-    return data.toLocaleDateString('pt-BR');
+    return data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
   }
-
 
     return (
         <div className="print-componente">
@@ -34,8 +31,8 @@ const ProntuarioParaImpressao = forwardRef(({ dados }, ref) => {
                      <section className="info-paciente">
                         <p><strong>Paciente:</strong> {dados.paciente.nome}</p>
                         <p><strong>CPF:</strong> {dados.paciente.cpf}</p>
-                        <p><strong>Data da Sessão:</strong> {formatarData(dados.dataRegistro)}</p>
-                        <p><strong>Horário:</strong> {dados.horario || 'N/A'}</p>
+                        <p><strong>Data da Sessão:</strong> {formatarData(Prontuario.data)}</p>
+                        <p><strong>Horário:</strong> {Prontuario.horario || 'N/A'}</p>
                     </section>
 
                     <hr />

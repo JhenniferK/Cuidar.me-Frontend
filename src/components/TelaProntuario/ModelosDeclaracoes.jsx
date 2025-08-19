@@ -65,7 +65,7 @@ const ModeloCard = ({ modelo }) => {
                 <DocumentoParaImpressao ref={componenteParaImprimirRef} template={modelo} />
             </div>
 
-            <div className="template-card-header">
+            <div className="template-card-header-modelosDeclaracoes">
                 <h2 className="template-titulo">{modelo.titulo}</h2>
                 <span className={`template-categoria ${modelo.categoria.toLowerCase()}`}>
                     {modelo.categoria}

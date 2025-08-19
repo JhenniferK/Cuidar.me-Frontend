@@ -1,10 +1,9 @@
 .prontuario-container {
-    text-align: center;
     font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    padding-top: 4rem; 
+    background: linear-gradient(135deg, #6d28d9, #a855f7, #f472b6, #fb923c);
+    min-height: 100vh;
+    padding: 2rem;
+    padding-top: 100px;
 }
 
 .prontuario-header {
@@ -31,7 +30,11 @@
 }
 
 .action-bar {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
     gap: 1rem; 
     width: 100%;
     max-width: 900px; 
@@ -42,6 +45,11 @@
     position: relative;
     flex-grow: 1; 
     max-width: 600px;
+}
+
+.conteudo-principal {
+  max-width: 1200px;
+  margin: 2rem auto 0 auto; 
 }
 
 .search-icon {
@@ -97,6 +105,10 @@
     border: 1px solid rgb(200, 183, 198);
     margin-top: 30px; 
     color: #a855f7;
+    justify-content: center;
+    max-width: fit-content; 
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .header-button {

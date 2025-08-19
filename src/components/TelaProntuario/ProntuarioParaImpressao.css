@@ -1,22 +1,59 @@
-@media print {
-    .prontuario-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-bottom: 2px solid #333;
-        padding-bottom: 1rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-    }
-    .logo {
-        max-width: 180px;
-        height: auto;
-        margin-top: 1rem;
-    }
+.print-componente {
+    position: absolute;
+    left: -9999px; 
+    top: -9999px;
+    visibility: hidden;
+    opacity: 0;
+}
 
-    .prontuario-header h1 {
-        font-size: 18pt;
-        font-weight: bold;
-        margin: 0;
-    }
+@media print {
+     body * {
+    visibility: hidden;
+  }
+  .print-componente, .print-componente * {
+    visibility: visible;
+  }
+  .print-componente {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .print-componente .prontuario-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px solid #000; 
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .print-componente .logo {
+    max-width: 150px; 
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .print-componente .prontuario-header h1 {
+    font-size: 16pt; 
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+  }
+   .print-componente .prontuario-body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  .print-componente .prontuario-footer {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 9pt;
+    color: #666;
+  }
 }

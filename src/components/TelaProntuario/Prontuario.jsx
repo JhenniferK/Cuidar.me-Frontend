@@ -1,29 +1,16 @@
 import './Prontuario.css';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendar, faPlus, faRectangleList} from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
-import ProntuarioParaImpressao from './ProntuarioParaImpressao';
 import ProntuarioList from './ProntuarioList';
+import ModelosDeclaracoes from './ModelosDeclaracoes';
 
 const Prontuario = ({abaAtiva, onMudarAba}) => {
     const navigate = useNavigate();
 
     const [busca, setBusca] = useState("");
 
-    const [prontuarioParaImprimir, setProntuarioParaImprimir ] = useState(null);
-    const prontuarioParaImpressaoRef = useRef();
-
-    const handleVerProntuario = (id) => {
-        navigate(`/novoProntuario/${id}`);
-    }
-    
-    const handleImprimirProntuario = (prontuario) => {
-        setProntuarioParaImprimir(prontuario);
-        setTimeout(() => {
-            prontuarioParaImpressaoRef.current?.imprimir();
-        }, 100);
-    }
     return(
         <div className="prontuario-container">
             <div className="prontuario-header">
@@ -36,7 +23,7 @@ const Prontuario = ({abaAtiva, onMudarAba}) => {
                     <input
                         type="text"
                         className="search-input"
-                        placeholder="Buscar por nome ou tipo de terapia"
+                        placeholder="Buscar por nome"
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
                     />
@@ -55,16 +42,15 @@ const Prontuario = ({abaAtiva, onMudarAba}) => {
             </div>
 
             <div className="conteudo-principal">
-                <ProntuarioList
-                    busca={busca}
-                    onVerProntuario={handleVerProntuario}
-                    onImprimirProntuario={handleImprimirProntuario}
-                    />
-            </div>
-            <ProntuarioParaImpressao
-                ref={prontuarioParaImpressaoRef}
-                dados={prontuarioParaImprimir}
-                />
+                 {abaAtiva === 'novo' && 
+                    <ProntuarioList
+                      //  busca={busca}
+                      //  onVerProntuario={handleVerProntuario}
+                    //    onImprimirProntuario={handleImprimirProntuario}
+                    /> //)
+                 }
+                {abaAtiva === 'modelosDeclaracoes' && <ModelosDeclaracoes />}
+            </div>        
         </div>
     );
 };
