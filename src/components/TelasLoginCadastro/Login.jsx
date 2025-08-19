@@ -15,7 +15,9 @@ const Login = () => {
         axios.post('http://localhost:8082/cuidarme/api/psicologo/login', { email, senha })
             .then((response) => {
                 const psicologoLogado = response.data;
-                localStorage.setItem('usuarioLogado', JSON.stringify(psicologoLogado));
+
+                localStorage.setItem('psicologo', JSON.stringify(psicologoLogado));
+
                 navigate('/principal');
             })
             .catch((error) => {

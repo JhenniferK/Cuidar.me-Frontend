@@ -15,14 +15,13 @@ const NovoAgendamento = () => {
     const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
     const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
 
-    const [tipoAtendimento, setTipoAtendimento] = useState(""); 
+    const [tipo, setTipo] = useState(""); 
     const [data, setData] = useState("");
     const [horario, setHorario] = useState("");
     const [localidade, setLocalidade] = useState("");
-    const [observacoes, setObservacoes] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:8081/paciente/listar')
+        axios.get('http://localhost:8082/cuidarme/api/paciente/listar')
             .then(response => {
                 setPacientes(response.data);
             })
@@ -60,15 +59,16 @@ const NovoAgendamento = () => {
 
         const atendimento = {
             data: dataHora,
-            localidade: tipoAtendimento === "presencial" ? localidade : null,
-            statusAtendimento: "AGENDADO", 
-            psicologo: { id: psicologoLogado.id },
-            paciente: { id: pacienteSelecionado.id }
+            localidade: tipo === "presencial" ? localidade : "Online",
+            status: "AGENDADO", 
+            psicologo: { lookupId: psicologoLogado.lookupId },
+            paciente: { lookupId: pacienteSelecionado.lookupId }
         };
 
-        axios.post("http://localhost:8081/atendimento/salvar", atendimento)
+        axios.post("http://localhost:8082/cuidarme/api/atendimento/salvar", atendimento)
             .then(() => {
                 alert("Atendimento agendado com sucesso!");
+                navigate('/paciente');
             })
             .catch(err => {
                 console.error("Erro ao salvar atendimento:", err);
@@ -108,7 +108,7 @@ const NovoAgendamento = () => {
                                         paciente.nome.toLowerCase().includes(busca.toLowerCase())
                                     )
                                     .map(paciente => (
-                                        <li key={paciente.id} onClick={() => selecionarPaciente(paciente)}>
+                                        <li key={paciente.lookupId} onClick={() => selecionarPaciente(paciente)}>
                                             {paciente.nome} - CPF: {paciente.cpf}
                                         </li>
                                     ))
@@ -130,6 +130,7 @@ const NovoAgendamento = () => {
                                     id="data" 
                                     value={data}
                                     onChange={(e) => setData(e.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
@@ -140,6 +141,7 @@ const NovoAgendamento = () => {
                                     id="horario"
                                     value={horario}
                                     onChange={(e) => setHorario(e.target.value)}
+                                    required
                                 >
                                     <option value="">Selecione o horário</option>
                                     <option value="08:00">08:00</option>
@@ -158,8 +160,9 @@ const NovoAgendamento = () => {
                         <div className="input-with-icon">
                             <select 
                                 id="tipo" 
-                                value={tipoAtendimento} 
-                                onChange={(e) => setTipoAtendimento(e.target.value)}
+                                value={tipo} 
+                                onChange={(e) => setTipo(e.target.value)}
+                                required
                             >
                                 <option value="">Selecione o tipo</option>
                                 <option value="online">Online</option>
@@ -167,13 +170,14 @@ const NovoAgendamento = () => {
                             </select>
                         </div>
                     </div>
-                    {tipoAtendimento === "presencial" && (
+                    {tipo === "presencial" && (
                         <div className="form-field">
                             <label htmlFor="localizacao">Localidade</label>
                             <select 
                                 id="localizacao"
                                 value={localidade}
                                 onChange={(e) => setLocalidade(e.target.value)}
+                                required
                             >
                                 <option value="">Selecione o local</option>
                                 <option value="CRAS - Alagoa Grande">CRAS - Alagoa Grande</option>
@@ -183,19 +187,8 @@ const NovoAgendamento = () => {
                         </div>
                     )}
 
-                    <div className="form-field">
-                        <label htmlFor="observacoes">Observações</label>
-                        <textarea 
-                            id="observacoes" 
-                            rows="4" 
-                            placeholder="informações adicionais sobre a consulta"
-                            value={observacoes}
-                            onChange={(e) => setObservacoes(e.target.value)}
-                        ></textarea>
-                    </div>
                 </section>
 
-                {/* Notificações */}
                 <section className="form-section">
                     <h2 className="section-title">Notificações</h2>
                     <div className="notification-toggle">

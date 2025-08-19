@@ -15,7 +15,7 @@ const CardPaciente = ({ paciente }) => {
     };
 
     const EditarPaciente = () => {
-        navigate('/editarPaciente/${paciente.lookupId}', {state: {pacienteParaEditar: paciente}})
+        navigate(`/editarPaciente/${paciente.lookupId}`)
     }
 
     const calcularIdade = (dataNascimento) => {

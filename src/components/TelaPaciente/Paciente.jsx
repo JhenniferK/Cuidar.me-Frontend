@@ -87,7 +87,7 @@ const Paciente = () => {
 
                 <section className="lista-pacientes">
                     {pacientesFiltrados.map(paciente => (
-                        <CardPaciente key={paciente.id} paciente={paciente} />
+                        <CardPaciente key={paciente.lookupId} paciente={paciente} />
                     ))}
                 </section>
             </main>
