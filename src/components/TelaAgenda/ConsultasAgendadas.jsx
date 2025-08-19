@@ -85,7 +85,6 @@ const ConsultasAgendadas = () => {
                 </div>
             ))}
         </div>
-
     );
 };
 

@@ -1,17 +1,22 @@
 import './Paciente.css';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faCalendarAlt, faClock, faEye, faEdit, faCalendar, faMapMarkerAlt, faHospital, faInfoCircle, faGenderless, faHeart, faBriefcase, faBookOpen, faBook } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 const CardPaciente = ({ paciente }) => {
+    const navigate = useNavigate();
 
     const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
-
-    const { nome, dataNascimento, telefonePessoal } = paciente;
+    const { nome, dataNascimento, telefone } = paciente;
 
     const toggleDetalhes = () => {
         setMostrarDetalhes(prev => !prev);
     };
+
+    const EditarPaciente = () => {
+        navigate('/editarPaciente/${paciente.lookupId}', {state: {pacienteParaEditar: paciente}})
+    }
 
     const calcularIdade = (dataNascimento) => {
         if (!dataNascimento) return "-";
@@ -49,15 +54,15 @@ const CardPaciente = ({ paciente }) => {
                 <span className="status-badge ativo">ativo</span>
             </div>
 
-            <div className="card-body">
-                <p><FontAwesomeIcon icon={faPhone} />{paciente.telefonePessoal}</p>
+            <div className="card-body-paciente">
+                <p><FontAwesomeIcon icon={faPhone} />{paciente.telefone}</p>
                 <p><FontAwesomeIcon icon={faCalendarAlt} /> <strong>Próxima consulta:</strong>24/01/2025 10:30</p>
                 <p><FontAwesomeIcon icon={faClock} /> <strong>Última sessão:</strong>17/01/2025</p>
             </div>
 
             <div className="card-footer">
                 <button className="btn-detalhes" onClick={toggleDetalhes}> <FontAwesomeIcon icon={faEye} /> {mostrarDetalhes ? 'Ocultar detalhes' : 'Ver detalhes'} </button>
-                <button className="btn-editar"><FontAwesomeIcon icon={faEdit} /> Editar</button>
+                <button className="btn-editar" onClick={EditarPaciente}><FontAwesomeIcon icon={faEdit} /> Editar</button>
             </div>
 
             {mostrarDetalhes && (
@@ -69,11 +74,11 @@ const CardPaciente = ({ paciente }) => {
 
                     <p><FontAwesomeIcon icon={faHeart} /><strong> Estado Civil: </strong>{paciente.estadoCivil}</p>
 
-                    <p><FontAwesomeIcon icon={faBook} /><strong> Escolaridade: </strong>{paciente.estadoCivil}</p>
+                    <p><FontAwesomeIcon icon={faBook} /><strong> Escolaridade: </strong>{paciente.grauInstrucao}</p>
 
                     <p><FontAwesomeIcon icon={faBriefcase} /><strong> Profissão: </strong>{paciente.profissao}</p>
 
-                    <p><FontAwesomeIcon icon={faPhone} /> <strong> Telefone: </strong>{paciente.telefonePessoal}</p>
+                    <p><FontAwesomeIcon icon={faPhone} /> <strong> Telefone: </strong>{paciente.telefone}</p>
 
                     {paciente.enderecoPessoal && (
                         <p><FontAwesomeIcon icon={faMapMarkerAlt} /> <strong> Endereço: </strong>{paciente.enderecoPessoal.logradouro}, {paciente.enderecoPessoal.numero} - {paciente.enderecoPessoal.cidade}, {paciente.enderecoPessoal.estado}</p>
@@ -88,7 +93,7 @@ const CardPaciente = ({ paciente }) => {
                     )}
 
                     {paciente.contatoEmergencia && (
-                        <p><FontAwesomeIcon icon={faPhone} /> <strong> Contato de Emergência: </strong>{paciente.contatoEmergencia.nome}, {paciente.contatoEmergencia.telefone}</p>
+                        <p><FontAwesomeIcon icon={faPhone} /> <strong> Contato de Emergência: </strong>{paciente.contatoEmergencia.nome}, {paciente.contatoEmergencia.telefone}, {paciente.contatoEmergencia.parentesco} </p>
                     )}
                 </div>
             )}

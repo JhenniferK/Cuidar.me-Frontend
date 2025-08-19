@@ -1,7 +1,6 @@
 import './Principal.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logonome from '../../assets/logonome.png';
 
 const Principal = () => {
   const navigate = useNavigate();

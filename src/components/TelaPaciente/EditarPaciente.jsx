@@ -1,12 +1,13 @@
-import { useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { useNavigate, useParams, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { faCalendarDays, faMapMarkedAlt, faPhone, faUserFriends, faIdCard, faUser, faHouse, faLocationArrow, faNoteSticky, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './AddPaciente.css';
 
-const AddPaciente = () => {
+const EditarPaciente = () => {
   const navigate = useNavigate();
+  const { lookupId } = useParams();
 
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
@@ -41,6 +42,32 @@ const AddPaciente = () => {
     cidade: '',
     estado: ''
   });
+
+  useEffect(() => {
+    if (lookupId) {
+      axios.get(`http://localhost:8082/cuidarme/api/paciente/buscar/${lookupId}`)
+        .then(response => {
+          const paciente = response.data;
+          setNome(paciente.nome || '');
+          setCpf(paciente.cpf ? formatarCPF(paciente.cpf) : '');
+          setRg(paciente.rg || '');
+          setDataNascimento(paciente.dataNascimento ? paciente.dataNascimento.split('T')[0] : '');
+          setTelefone(paciente.telefone ? formatarTelefone(paciente.telefone) : '');
+          setSexo(paciente.sexo || '');
+          setEstadoCivil(paciente.estadoCivil || '');
+          setGrauInstrucao(paciente.grauInstrucao || '');
+          setProfissao(paciente.profissao || '');
+          setContatoEmergencia(paciente.contatoEmergencia || { nome: '', telefone: '', parentesco: '' });
+          setInfoAdicionais(paciente.infoAdicionais || '');
+          setEnderecoPessoal(paciente.enderecoPessoal || { cep: '', logradouro: '', numero: '', cidade: '', estado: '' });
+          setEnderecoTrabalho(paciente.enderecoTrabalho || { cep: '', logradouro: '', numero: '', cidade: '', estado: '' });
+        })
+        .catch(error => {
+          console.error('Erro ao buscar dados do paciente:', error);
+          alert('Não foi possível carregar os dados do paciente.');
+        });
+    }
+  }, [lookupId]);
 
   const formatarCPF = (valor) => {
     valor = valor.replace(/\D/g, '').slice(0, 11);
@@ -125,14 +152,14 @@ const AddPaciente = () => {
       contatoEmergencia
     };
 
-    axios.post('http://localhost:8082/cuidarme/api/paciente/cadastrar', paciente)
+    axios.patch(`http://localhost:8082/cuidarme/api/paciente/atualizar/${lookupId}`, paciente)
       .then(() => {
-        alert('Paciente cadastrado com sucesso!');
+        alert('Informações atualizadas com sucesso!');
         navigate('/paciente');
       })
       .catch((error) => {
-        console.error('Erro ao cadastrar paciente:', error);
-        alert('Erro ao cadastrar paciente.');
+        console.error('Erro ao editar informações do paciente:', error);
+        alert('Erro ao editar informações do paciente.');
       });
   }
 
@@ -140,8 +167,8 @@ const AddPaciente = () => {
     <div className="cadastro-paciente">
       <div className="cadastro-card">
         <div className="form-header">
-          <h1>Cadastro de Paciente</h1>
-          <p>Preencha as informações do paciente para adicionar ao sistema</p>
+          <h1>Editar informações do Paciente</h1>
+          <p>Atualize as informações desejadas</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -551,7 +578,7 @@ const AddPaciente = () => {
               Voltar
             </NavLink>
             <button type="submit" className="btn-cadastrar-paciente">
-              Cadastrar Paciente
+              Salvar
             </button>
           </div>
         </form>
@@ -560,4 +587,4 @@ const AddPaciente = () => {
   );
 }
 
-export default AddPaciente;
+export default EditarPaciente;

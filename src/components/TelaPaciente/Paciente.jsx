@@ -12,7 +12,7 @@ const Paciente = () => {
     const [busca, setBusca] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:8082/paciente/listar')
+        axios.get('http://localhost:8082/cuidarme/api/paciente/listar')
             .then(response => {
                 setPacientes(response.data)
             })
@@ -86,7 +86,7 @@ const Paciente = () => {
                 </section>
 
                 <section className="lista-pacientes">
-                    {pacientes.map(paciente => (
+                    {pacientesFiltrados.map(paciente => (
                         <CardPaciente key={paciente.id} paciente={paciente} />
                     ))}
                 </section>

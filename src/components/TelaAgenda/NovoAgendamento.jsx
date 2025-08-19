@@ -1,14 +1,17 @@
-import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
-import { faMapPin, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+import { faSearch, faBell } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import './NovoAgendamento.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 const NovoAgendamento = () => {
     const [pacientes, setPacientes] = useState([]);
     const [busca, setBusca] = useState("");
+
+    const navigate = useNavigate();
+
     const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
     const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
 
@@ -94,6 +97,7 @@ const NovoAgendamento = () => {
                                     setBusca(e.target.value); 
                                     setMostrarSugestoes(true); 
                                 }}
+                                required
                             />
                         </div>
 
@@ -107,7 +111,8 @@ const NovoAgendamento = () => {
                                         <li key={paciente.id} onClick={() => selecionarPaciente(paciente)}>
                                             {paciente.nome} - CPF: {paciente.cpf}
                                         </li>
-                                    ))}
+                                    ))
+                                }
                             </ul>
                         )}
                     </div>
@@ -162,7 +167,6 @@ const NovoAgendamento = () => {
                             </select>
                         </div>
                     </div>
-
                     {tipoAtendimento === "presencial" && (
                         <div className="form-field">
                             <label htmlFor="localizacao">Localidade</label>
@@ -204,7 +208,6 @@ const NovoAgendamento = () => {
                     <p className="notification-info">
                         <FontAwesomeIcon icon={faBell} />Confirmação automática será enviada por WhatsApp</p>
                 </section>
-
                 <button type="submit" className="submit-button">
                     Agendar Consulta
                 </button>
