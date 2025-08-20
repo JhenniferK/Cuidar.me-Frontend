@@ -9,36 +9,46 @@ const NovoProntuario = () => {
     const navigate = useNavigate();
 
     const [dataRegistro, setDataRegistro] = useState('');
-    const [horario, setHorario] = useState('');
-    const [demanda, setDemanda] = useState('');
-    const [tecnicasUtilizadas, settecnicasUtilizadas] = useState('');
-    const [observacoes, setObservacoes] = useState('');
-
+    const [anotacoes, setAnotacoes] = useState('');
     const [busca, setBusca] = useState("");
     const [pacientes, setPacientes] = useState([]);
-    const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
     const [pacienteSelecionadoId, setPacienteSelecionadoId] = useState(null);
+    const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
+    const [horario, setHorario] = useState('');
 
     useEffect(() => {
-        if(busca) {
-            axios.get('http://localhost:8081/paciente/listar')
-                .then(response => {
-                    setPacientes(response.data)
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar pacientes:', error)
-            });
-        }  else {
-            setPacientes([]);
+        const psicologoSalvo = localStorage.getItem('psicologo');
+        if (!psicologoSalvo) {
+            alert("Sessão expirada. Faça o login novamente.");
+            navigate('/');
+            return;
         }
-    }, [busca]);
+
+        const psicologo = JSON.parse(psicologoSalvo);
+        const psicologoId = psicologo.lookupId;
+
+        const url = `http://localhost:8082/cuidarme/api/psicologo/${psicologoId}/pacientes`;
+
+        axios.get(url)
+            .then(response => {
+                setPacientes(response.data);
+            })
+            .catch(error => {
+                console.error('Erro ao buscar pacientes:', error);
+            });
+    }, [navigate]);
 
     const selecionarPaciente = (paciente) => {
-    setBusca(paciente.nome); 
-    setPacienteSelecionadoId(paciente.id); 
-    setMostrarSugestoes(false); 
+        setBusca(paciente.nome);
+        setPacienteSelecionadoId(paciente.lookupId);
+        setMostrarSugestoes(false);
     };
 
+    const pacientesFiltrados = busca.length > 0
+        ? pacientes.filter(paciente =>
+            paciente.nome.toLowerCase().includes(busca.toLowerCase())
+        )
+        : [];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,24 +57,29 @@ const NovoProntuario = () => {
             return;
         }
 
+        const psicologoLogado = JSON.parse(localStorage.getItem("psicologo"));
+        if (!psicologoLogado) {
+            alert("Você precisa estar logado!");
+            return;
+        }
+
+        const dataHoraFormatada = `${dataRegistro}T${horario || '00:00'}:00`;
+
         const novoProntuario = {
-            paciente: { pacienteSelecionadoId }, 
-            data: dataRegistro,
-            horario: horario,
-            demanda: demanda,
-            tecnicasUtilizadas: tecnicasUtilizadas,
-            observacoes: observacoes
+            paciente: { lookupId: pacienteSelecionadoId },
+            psicologo: { lookupId: psicologoLogado.lookupId },
+            dataRegistro: dataHoraFormatada, 
+            descricao: anotacoes
         };
 
         try {
-            await axios.post('POST http://localhost:8081/prontuario', novoProntuario);
+            await axios.post('http://localhost:8082/cuidarme/api/prontuario/adicionar', novoProntuario);
             alert('Prontuário criado com sucesso!');
-            navigate('/prontuario'); 
+            navigate('/prontuarios');
         } catch (error) {
             console.error("Erro ao criar prontuário:", error);
-            alert("Falha ao criar o prontuário. Verifique o console.");
+            alert("Falha ao criar o prontuário. Verifique os dados e o console.");
         }
-
     };
 
     return (
@@ -72,7 +87,7 @@ const NovoProntuario = () => {
             <div className="novoProntuario-card">
                 <div className="novoProntuario-header">
                     <h2 className="novoProntuario-titulo">
-                        <FontAwesomeIcon icon={faClipboardUser}/>Prontuário Psicológico
+                        <FontAwesomeIcon icon={faClipboardUser} />Prontuário Psicológico
                     </h2>
                     <p>Preencha as informações de prontuário para adicionar no sistema</p>
                 </div>
@@ -86,37 +101,33 @@ const NovoProntuario = () => {
                                     type="text"
                                     placeholder="Buscar paciente"
                                     value={busca}
-                                    onChange={(e) => { 
-                                    setBusca(e.target.value);
-                                    setMostrarSugestoes(true); 
+                                    onChange={(e) => {
+                                        setBusca(e.target.value);
+                                        setMostrarSugestoes(true);
                                     }}
                                     required
                                 />
                             </div>
-                
+
                             {mostrarSugestoes && busca.length > 0 && (
                                 <ul className="resultado-busca">
-                                    {pacientes
-                                    .filter(paciente =>
-                                    paciente.nome.toLowerCase().includes(busca.toLowerCase())
-                                    )
-                                    .map(paciente => (
-                                    <li key={paciente.id} onClick={() => selecionarPaciente(paciente)}>
-                                        {paciente.nome} - {paciente.cpf}
-                                    </li>
+                                    {pacientesFiltrados.map(paciente => (
+                                        <li key={paciente.lookupId} onClick={() => selecionarPaciente(paciente)}>
+                                            {paciente.nome} - {paciente.cpf}
+                                        </li>
                                     ))}
                                 </ul>
                             )}
                         </div>
                     </section>
-                
+
                     <section className="form-section">
                         <div className="input-group">
                             <div className="form-field">
-                                <label htmlFor="data">Data do atendimento:</label>
+                                <label htmlFor="data">Data do registro:</label>
                                 <input
-                                    type="date" 
-                                    id="data" 
+                                    type="date"
+                                    id="data"
                                     value={dataRegistro}
                                     onChange={(e) => setDataRegistro(e.target.value)}
                                 />
@@ -124,7 +135,7 @@ const NovoProntuario = () => {
 
                             <div className="form-field">
                                 <label htmlFor="horario">Horário</label>
-                                <select 
+                                <select
                                     id="horario"
                                     value={horario}
                                     onChange={(e) => setHorario(e.target.value)}
@@ -141,32 +152,17 @@ const NovoProntuario = () => {
                         </div>
 
                         <div className="form-field">
-                            <label htmlFor="demanda">Demanda Principal / Queixa</label>
-                            <textarea 
-                                id="demanda" 
-                                rows="3" 
-                                placeholder="Descreva a principal queixa ou demanda do paciente nesta sessão"
-                                value={demanda}
-                                onChange={(e) => setDemanda(e.target.value)}
+                            <label htmlFor="anotacoes">Anotações da Sessão</label>
+                            <textarea
+                                id="anotacoes"
+                                rows="3"
+                                placeholder="Anotações sobre o quadro do paciente nesta sessão"
+                                value={anotacoes}
+                                onChange={(e) => setAnotacoes(e.target.value)}
                                 required
                             ></textarea>
                         </div>
 
-                        <div className="form-field">
-                            <label htmlFor="tecnicas">Técnicas Utilizadas</label>
-                            <textarea 
-                                id="tecnicas" 
-                                rows="3" 
-                                placeholder="Descreva as técnicas, abordagens e intervenções utilizadas"
-                                value={tecnicasUtilizadas}
-                                onChange={(e) => settecnicasUtilizadas(e.target.value)}
-                            ></textarea>
-                        </div>
-
-                        <div className="form-field">
-                            <label htmlFor="observacoes">Observações</label>
-                            <textarea id="observacoes" rows="4" placeholder="Outras informações, evolução do paciente, encaminhamentos, etc" value={observacoes} onChange={(e) => setObservacoes(e.target.value)}></textarea>
-                        </div>
                     </section>
                     <button type="submit" className="submit-button">
                         Criar Prontuário

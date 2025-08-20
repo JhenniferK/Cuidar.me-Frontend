@@ -9,7 +9,7 @@ const ProntuarioList = ({ busca, onVerProntuario, onImprimirProntuario }) => {
     const [prontuarios, setProntuarios] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8081/prontuario')
+        axios.get('http://localhost:8082/cuidarme/api/prontuario/listar')
             .then(response => {
                 setProntuarios(response.data);
             })

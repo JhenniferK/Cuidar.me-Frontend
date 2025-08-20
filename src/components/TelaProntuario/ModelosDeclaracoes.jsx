@@ -8,32 +8,18 @@ import './ModelosDeclaracoes.css';
 
 const templatesDisponiveis = [
     {
+        id: 'prontuario_pessoal',
+        titulo: 'Prontuário Pessoal do Paciente',
+        categoria: 'Prontuário',
+        descricao: 'Modelo para o acompanhamento dos atendimentos psicológicos.',
+        conteudoParaImpressao: 'Acompanhamento da evolução psicológica.'
+    },
+    {
         id: 'declaracao_comparecimento',
         titulo: 'Declaração de Comparecimento',
         categoria: 'Declaração',
-        descricao: 'Modelo padrão para declaração de comparecimento à consulta médica.',
+        descricao: 'Modelo para declaração de comparecimento à sessão.',
         conteudoParaImpressao: 'Eu, [Nome do Psicólogo], declaro que o paciente [Nome do Paciente] compareceu à consulta no dia XX/XX/XXXX.'
-    },
-    {
-        id: 'prontuario_cardiologico',
-        titulo: 'Prontuário Cardiológico',
-        categoria: 'Prontuário',
-        descricao: 'Template específico para consultas cardiológicas.',
-        conteudoParaImpressao: 'Histórico do paciente, exames e observações da consulta cardiológica.'
-    },
-    {
-        id: 'declaracao_aptidao',
-        titulo: 'Declaração de Aptidão Física',
-        categoria: 'Declaração',
-        descricao: 'Modelo para declarações de aptidão física para atividades.',
-        conteudoParaImpressao: 'Atesto que [Nome do Paciente] está apto(a) para a prática de atividades físicas.'
-    },
-    {
-        id: 'prontuario_pediatrico',
-        titulo: 'Prontuário Pediátrico',
-        categoria: 'Prontuário',
-        descricao: 'Template especializado para atendimento pediátrico.',
-        conteudoParaImpressao: 'Acompanhamento do desenvolvimento, vacinas e observações da consulta pediátrica.'
     },
 ];
 

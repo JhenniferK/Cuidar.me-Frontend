@@ -1,23 +1,25 @@
 import './ConsultasAgendadas.css';
+import RemarcarAgendamento from './RemarcarAgendamento';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faMap } from '@fortawesome/free-regular-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
-import { faClock} from '@fortawesome/free-regular-svg-icons';
-import { useEffect, useState } from 'react'; 
-import axios from 'axios'; 
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const ConsultasAgendadas = () => {
     const [consultas, setConsultas] = useState([]);
+    const [remarcandoConsultaId, setRemarcandoConsultaId] = useState(null);
 
     useEffect(() => {
         const psicologoSalvo = localStorage.getItem('psicologo');
 
         if (psicologoSalvo) {
             const psicologo = JSON.parse(psicologoSalvo);
-            const psicologoLookupId = psicologo.lookupId;
+            const psicologolookupId = psicologo.lookupId;
 
-            const url = `http://localhost:8082/cuidarme/api/psicologo/${psicologoLookupId}/atendimento`;
-            
+            const url = `http://localhost:8082/cuidarme/api/psicologo/${psicologolookupId}/atendimento`;
+
             axios.get(url)
                 .then(response => {
                     setConsultas(response.data);
@@ -27,7 +29,52 @@ const ConsultasAgendadas = () => {
                 });
         }
     }, []);
-    
+
+    const handleCancelarConsulta = (lookupId) => {
+        if (!window.confirm("Tem certeza que deseja cancelar esta consulta?")) {
+            return;
+        }
+
+        const url = `http://localhost:8082/cuidarme/api/atendimento/cancelar/${lookupId}`;
+
+        axios.put(url)
+            .then(() => {
+                setConsultas(consultasAtuais =>
+                    consultasAtuais.map(consulta =>
+                        consulta.lookupId === lookupId
+                            ? { ...consulta, status: "CANCELADO" }
+                            : consulta
+                    )
+                );
+
+                alert("Consulta cancelada com sucesso!");
+            })
+            .catch(error => {
+                console.error("Erro ao cancelar a consulta:", error);
+                alert("Não foi possível cancelar a consulta. Tente novamente.");
+            });
+    };
+
+    const handleSalvarRemarcacao = (consultaId, novosDados) => {
+        const url = `http://localhost:8082/cuidarme/api/atendimento/remarcar/${consultaId}`;
+
+        axios.patch(url, novosDados)
+            .then(response => {
+                const consultaAtualizada = response.data;
+                setConsultas(consultasAtuais =>
+                    consultasAtuais.map(c =>
+                        c.lookupId === consultaId ? consultaAtualizada : c
+                    )
+                );
+                setRemarcandoConsultaId(null);
+                alert("Consulta remarcada com sucesso!");
+            })
+            .catch(error => {
+                console.error("Erro ao remarcar a consulta:", error);
+                alert("Não foi possível remarcar a consulta.");
+            });
+    };
+
     const formatarDataHora = (dataString) => {
         if (!dataString) return { data: '-', horario: '-' };
         const dataObj = new Date(dataString);
@@ -39,9 +86,9 @@ const ConsultasAgendadas = () => {
     return (
         <div className="consultas-container">
             <h1 className="main-titulo">
-                <FontAwesomeIcon icon={faCalendar}/> Consultas Agendadas
+                <FontAwesomeIcon icon={faCalendar} /> Consultas Agendadas
             </h1>
-            
+
             {consultas.map((consulta) => {
                 const { data, horario } = formatarDataHora(consulta.data);
                 const tipo = consulta.localidade === 'Online' ? 'Online' : 'Presencial';
@@ -69,9 +116,28 @@ const ConsultasAgendadas = () => {
 
                         <div className="card-footer">
                             <button className="footer-button">Enviar Lembrete</button>
-                            <button className="footer-button">Remarcar</button>
-                            <button className="footer-button">Cancelar</button>
+                            <button
+                                className="footer-button"
+                                onClick={() => setRemarcandoConsultaId(consulta.lookupId)}
+                            >
+                                Remarcar
+                            </button>
+                            <button
+                                className="footer-button"
+                                onClick={() => handleCancelarConsulta(consulta.lookupId)}
+                            >
+                                Cancelar
+                            </button>
                         </div>
+
+                        {remarcandoConsultaId === consulta.lookupId && (
+                            <RemarcarAgendamento
+                                consulta={consulta}
+                                onSalvar={handleSalvarRemarcacao}
+                                onCancelar={() => setRemarcandoConsultaId(null)}
+                            />
+                        )}
+
                     </div>
                 );
             })}

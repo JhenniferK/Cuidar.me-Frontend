@@ -27,7 +27,7 @@ const Prontuario = ({abaAtiva, onMudarAba}) => {
     return(
         <div className="prontuario-container">
             <div className="prontuario-header">
-                <h1 className="prontuario-titulo">Sistema de Prontuários</h1>
+                <h1 className="prontuario-titulo">Prontuários</h1>
                 <p className="prontuario-subtitulo">Gerencie prontuários de pacientes e gere declarações profissionais</p>
             </div>
             <div className="action-bar">
