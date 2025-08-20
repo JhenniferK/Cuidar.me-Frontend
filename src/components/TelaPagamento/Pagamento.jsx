@@ -8,19 +8,25 @@ import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import PagamentoCard from './PagamentoCard';
 import NovoPagamento from './NovoPagamento';
 
-const pagamentoData = [
-  { id: 1, nome: 'Maria Silva', status: 'Quitado', valor: 'R$ 150,00', metodo: ' PIX' },
-  { id: 2, nome: 'João Santos', status: 'Pendente', valor: 'R$ 200,00', metodo: ' Cartão' },
-  { id: 3, nome: 'Ana Costa', status: 'Vencido', valor: 'R$ 120,00', metodo: ' Boleto' },
-];
-
 const Pagamento = () => {
-
+    const [pagamentos, setPagamentos] = useState([]);
     const [pacientes, setPacientes] = useState([]);
     const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
-
     const [busca, setBusca] = useState("");
     const [isFormVisible, setIsFormVisible] = useState(false);
+
+    const buscarPagamentos = async ()=> {
+        try {
+            const response = await axios.get('http://localhost:8082/cuidarme/api/pagamento/listar');
+            setPagamentos(response.data);
+        }catch (error) {
+            console.error('Erro ao buscar a lista de pagamentos', error);
+        }
+    }
+
+     useEffect(() => {
+        buscarPagamentos();
+    }, []);
 
     useEffect(() => {
         const buscarPacientes = async () => {
@@ -43,11 +49,16 @@ const Pagamento = () => {
         setBusca(paciente.nome);
     };
 
+    const handlePagamentoCriado = () => {
+        buscarPagamentos();
+        setIsFormVisible(false);
+    }
+
     return (
         <div className="pagamento-container">
             <div className="pagamento-card">
                 <h1 className="pagamento-titulo">
-                    <FontAwesomeIcon icon={faCreditCard} /> Pagamentos
+                    <FontAwesomeIcon icon={faCreditCard} /> Controle de Pagamentos
                 </h1>
                 <div className="action-bar">
                     <div className="search-wrapper">
@@ -85,9 +96,9 @@ const Pagamento = () => {
                     </button>
                 </div>
 
-                {isFormVisible && <NovoPagamento onClose={() => setIsFormVisible(false)} />}
+                {isFormVisible && <NovoPagamento onClose={() => setIsFormVisible(false)} onPagamentoCriado={handlePagamentoCriado} />}
                 <div className="pagamento-list">
-                    {pagamentoData.map((pagamento) => (
+                    {pagamentos.map((pagamento) => (
                         <PagamentoCard key={pagamento.id} pagamento={pagamento} />
                     ))}
                 </div>
@@ -96,4 +107,4 @@ const Pagamento = () => {
     );
 }
 
-export default Pagamento;
+export default Pagamento;  

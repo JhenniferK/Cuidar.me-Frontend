@@ -14,8 +14,18 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
 
     useEffect(() => {
         const buscarPacientes = async () => {
+            const psicologoSalvo = localStorage.getItem('psicologo');
+            if (!psicologoSalvo) {
+                console.error("Nenhum psicólogo logado encontrado.");
+                return;
+            }
+            
+            const psicologo = JSON.parse(psicologoSalvo);
+            const psicologoId = psicologo.lookupId;
+
             try {
-                const response = await axios.get('http://localhost:8082/cuidarme/api/paciente/listar');
+                const url = `http://localhost:8082/cuidarme/api/psicologo/${psicologoId}/pacientes`;
+                const response = await axios.get(url);
                 setPacientes(response.data);
             } catch (error) {
                 console.error('Erro ao buscar a lista de pacientes', error);
@@ -39,18 +49,20 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
             alert("Por favor, selecione um paciente da lista");
             return;
         }
-
+        
         const novoPagamento = {
             valor: parseFloat(quantia.replace(',', '.')),
             metodo: metodo,
-            pacienteId: pacienteSelecionado.id, 
-            data: new Date().toISOString().split('T')[0],
-            status: 'PAGO'
+            data: new Date().toISOString(), 
+            status: 'PAGO',
+            paciente: {
+                lookupId: pacienteSelecionado.lookupId 
+            }
         } 
 
         try {
             const response = await axios.post('http://localhost:8082/cuidarme/api/pagamento/cadastrar', novoPagamento);
-            alert("Pagamento realizado com sucesso")
+            alert("Pagamento realizado com sucesso");
 
             if(onPagamentoCriado){
                 onPagamentoCriado(response.data);
@@ -59,11 +71,11 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
             if(onClose){
                 onClose();
             } else {
-                navigate('/pagamentoCard')
+                navigate('/pagamentos');
             }
         } catch (error) {
-            console.error("Erro ao registrar pagamento: ", error)
-            alert("Não foi possível realizar o pagamento, verifique o que aconteceu")
+            console.error("Erro ao registrar pagamento: ", error);
+            alert("Não foi possível realizar o pagamento. Verifique os dados e o console.");
         }
     };
 
@@ -82,9 +94,7 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
                             autoComplete="off"
                             onChange={(e) => {
                                 setBusca(e.target.value);
-                                if (pacienteSelecionado) {
-                                    setPacienteSelecionado(null);
-                                }
+                                setPacienteSelecionado(null);
                             }}
                             required
                         />
@@ -92,7 +102,8 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
                             <div className="resultados-busca">
                                 {pacientesFiltrados.map(paciente => (
                                     <div
-                                        key={paciente.id}
+                                        // --- CORREÇÃO 3: Usar lookupId como key ---
+                                        key={paciente.lookupId}
                                         className="resultado-item"
                                         onClick={() => handleSelecionarPaciente(paciente)}
                                     >
@@ -125,9 +136,8 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
                                     required
                                 >
                                     <option value="PIX">PIX</option>
-                                    <option value="Cartão de Crédito">Cartão de Crédito</option>
-                                    <option value="Boleto">Boleto</option>
-                                    <option value="Dinheiro">Dinheiro</option>
+                                    <option value="CARTAO">Cartão de Crédito</option>
+                                    <option value="ESPECIE">Dinheiro</option>
                                 </select>
                             </div>
                         </div>
