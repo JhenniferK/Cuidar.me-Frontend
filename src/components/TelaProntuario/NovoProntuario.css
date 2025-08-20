@@ -1,171 +1,155 @@
-/* --- Estilo da Página (Container Principal) --- */
-/* Aplique esta classe a uma div que envolve seu componente para obter o fundo gradiente */
-.novo-prontuario-pagina {
+/* Estilo geral para o container da página */
+.novoProntuario-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Alinha o card ao topo */
+  align-items: flex-start;
   min-height: 100vh;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #8a53ff, #c06cff, #f76fff);
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #a259ff, #f76fff, #ff8a00);
   font-family: 'Poppins', sans-serif;
-  box-sizing: border-box;
 }
 
-.novoProntuario-container {
-   display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #A259FF, #F76FFF, #FF8A00);
-    font-family: 'Poppins', sans-serif;
-}
-
+/* Card principal do formulário */
 .novoProntuario-card {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 750px;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 750px;
 }
 
+/* Cabeçalho do formulário */
 .novoProntuario-header {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: left; 
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.novoProntuario-titulo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #8b5cf6;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 0 8px 0;
+.novoProntuario-header h1 {
+  color: #a755f7;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
 }
 
 .novoProntuario-header p {
-    font-size: 1rem;
-    color: #64748b;
-    margin: 0;
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
 }
 
-.form-section {
-    margin-bottom: 35px;
-}
-
-.section-title {
-    font-size: 1.125rem; 
-    font-weight: 600;
-    color: #4c1d95; 
-    margin: 0 0 24px 0;
-}
-
-.form-field {
-    margin-bottom: 20px;
-}
-
-.form-field label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #475569;
-    margin-bottom: 8px;
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    background-color: #f8fafc;
-    font-size: 1rem;
-    color: #334155;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box; 
-}
-
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-    outline: none;
-    border-color: #8b5cf6;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
-}
-
-.input-group {
-    display: flex;
-    gap: 20px;
-}
-.input-group .form-field {
-    flex: 1; 
-}
-
+/* Container para o campo de busca e a lista de sugestões */
 .input-busca-container {
-    position: relative;
+  position: relative;
 }
 
-.input-busca {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.input-busca .fa-search {
-    position: absolute;
-    left: 16px;
-    color: #94a3b8;
-}
-
-.input-busca input {
-    padding-left: 48px; 
-}
-
+/* Estilo para a lista de resultados/sugestões da busca */
 .resultado-busca {
-    list-style: none;
-    padding: 0;
-    margin: 8px 0 0 0;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    position: absolute;
-    width: 100%;
-    z-index: 10;
-    max-height: 200px;
-    overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .resultado-busca li {
-    padding: 12px 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #334155;
 }
 
 .resultado-busca li:hover {
-    background-color: #f1f5f9;
+  background-color: #f1f5f9;
 }
 
+.resultado-busca li.sem-resultados {
+  cursor: default;
+  color: #94a3b8;
+  padding: 16px;
+  text-align: center;
+}
+
+.resultado-busca li.sem-resultados:hover {
+  background-color: transparent;
+}
+
+
+/* Agrupador para múltiplos campos na mesma linha (ex: data e hora) */
+.input-group {
+  display: flex;
+  gap: 20px;
+}
+
+/* Container para um campo de formulário individual (label + input/textarea) */
+.form-field {
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+/* Estilo geral para inputs e textareas */
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  font-size: 16px;
+  color: #334155;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-field textarea {
+    resize: vertical; /* Permite que o usuário redimensione a altura */
+    min-height: 120px;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #94a3b8;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: #a755f7;
+  box-shadow: 0 0 0 3px rgba(167, 85, 247, 0.2);
+}
+
+/* Estilo para o botão de submissão */
 .submit-button {
-    width: 100%;
-    padding: 14px 24px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    color: white;
-    margin-top: 20px;
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #a755f7;
+  color: white;
+  margin-top: 10px;
 }
 
 .submit-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+  background-color: #864bd2;
 }

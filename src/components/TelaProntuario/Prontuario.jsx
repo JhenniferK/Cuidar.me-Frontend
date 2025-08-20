@@ -2,14 +2,13 @@ import './Prontuario.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faCalendar, faPlus, faRectangleList} from '@fortawesome/free-solid-svg-icons';
-import { NavLink, useNavigate } from 'react-router-dom';
-import ProntuarioList from './ProntuarioList';
+import { NavLink } from 'react-router-dom';
+import ProntuarioList from './ProntuarioList'; 
 import ModelosDeclaracoes from './ModelosDeclaracoes';
 
-const Prontuario = ({abaAtiva, onMudarAba}) => {
-    const navigate = useNavigate();
-
+const Prontuario = () => {
     const [busca, setBusca] = useState("");
+    const [abaAtiva, setAbaAtiva] = useState('prontuarios'); 
 
     return(
         <div className="prontuario-container">
@@ -23,7 +22,7 @@ const Prontuario = ({abaAtiva, onMudarAba}) => {
                     <input
                         type="text"
                         className="search-input"
-                        placeholder="Buscar por nome"
+                        placeholder="Buscar por nome do paciente"
                         value={busca}
                         onChange={(e) => setBusca(e.target.value)}
                     />
@@ -33,21 +32,17 @@ const Prontuario = ({abaAtiva, onMudarAba}) => {
                 </NavLink>
             </div>
             <div className='header-button-group'>
-                <button onClick={() => onMudarAba('novo')} className={`header-button ${abaAtiva === "novo" ? "active" : ""}`}>
+                <button onClick={() => setAbaAtiva('prontuarios')} className={`header-button ${abaAtiva === "prontuarios" ? "active" : ""}`}>
                     <FontAwesomeIcon icon={faCalendar} /> Prontuários
                 </button>
-                <button onClick={() => onMudarAba('modelosDeclaracoes')} className={`header-button ${abaAtiva === "modelosDeclaracoes" ? "active" : ""}`}>
+                <button onClick={() => setAbaAtiva('modelosDeclaracoes')} className={`header-button ${abaAtiva === "modelosDeclaracoes" ? "active" : ""}`}>
                     <FontAwesomeIcon icon={faRectangleList} /> Modelos e Declarações
                 </button>
             </div>
 
-            <div className="conteudo-principal">
-                 {abaAtiva === 'novo' && 
-                    <ProntuarioList
-                      //  busca={busca}
-                      //  onVerProntuario={handleVerProntuario}
-                    //    onImprimirProntuario={handleImprimirProntuario}
-                    /> //)
+            <div className="conteudo-principal-prontuario">
+                 {abaAtiva === 'prontuarios' && 
+                    <ProntuarioList busca={busca} />
                  }
                 {abaAtiva === 'modelosDeclaracoes' && <ModelosDeclaracoes />}
             </div>        

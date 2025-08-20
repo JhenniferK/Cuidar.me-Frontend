@@ -47,7 +47,7 @@ const Pagamento = () => {
         <div className="pagamento-container">
             <div className="pagamento-card">
                 <h1 className="pagamento-titulo">
-                    <FontAwesomeIcon icon={faCreditCard} /> Sistema de pagamentos
+                    <FontAwesomeIcon icon={faCreditCard} /> Pagamentos
                 </h1>
                 <div className="action-bar">
                     <div className="search-wrapper">
