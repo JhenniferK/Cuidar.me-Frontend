@@ -14,6 +14,8 @@ import EditarPaciente from './components/TelaPaciente/EditarPaciente';
 import Agendamento from './components/TelaAgenda/Agendamento'
 import BotoesProntuario from './components/TelaProntuario/BotoesProntuario';
 import NovoProntuario from './components/TelaProntuario/NovoProntuario';
+import ProntuarioCard from './components/TelaProntuario/ProntuarioCard';
+import Prontuario from './components/TelaProntuario/Prontuario';
 
 const MainLayout = () => {
   return (
@@ -44,6 +46,7 @@ function App() {
           <Route path='/addPaciente' element={<AddPaciente/>} />
           <Route path='/editarPaciente/:lookupId' element={<EditarPaciente/>} />
           <Route path='/novoProntuario' element={<NovoProntuario />}/>
+          <Route path="/prontuario" element={<Prontuario />} />
           <Route path='/perfil' element={< Perfil />}/>
           <Route/>
         </Route>

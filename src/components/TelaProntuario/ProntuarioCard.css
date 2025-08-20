@@ -25,14 +25,6 @@
 }
 
 .card-header h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3rem; 
-    font-weight: 600;
-    color: #1e3a8a;
-    margin: 0;
-}
-
-.card-header .tag.prontuario {
     padding: 6px 16px;
     border-radius: 20px;
     font-size: 0.8rem; 
@@ -40,6 +32,19 @@
     color: white;
     background: linear-gradient(135deg, #c084fc, #a855f7); 
     white-space: nowrap; 
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem; 
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+.tag.prontuario {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem; 
+    font-weight: 600;
+    color: #1e3a8a;
+    margin: 0; 
 }
 .card-body {
     flex-grow: 1; 

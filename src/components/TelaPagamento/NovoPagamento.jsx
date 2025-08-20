@@ -15,7 +15,7 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
     useEffect(() => {
         const buscarPacientes = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/paciente/listar');
+                const response = await axios.get('http://localhost:8082/cuidarme/api/paciente/listar');
                 setPacientes(response.data);
             } catch (error) {
                 console.error('Erro ao buscar a lista de pacientes', error);
@@ -49,7 +49,7 @@ const NovoPagamento = ({onClose, onPagamentoCriado}) => {
         } 
 
         try {
-            const response = await axios.post('http://localhost:8081/pagamento', novoPagamento);
+            const response = await axios.post('http://localhost:8082/cuidarme/api/pagamento/cadastrar', novoPagamento);
             alert("Pagamento realizado com sucesso")
 
             if(onPagamentoCriado){

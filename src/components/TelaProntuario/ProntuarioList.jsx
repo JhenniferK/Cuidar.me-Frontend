@@ -36,4 +36,5 @@ const ProntuarioList = ({ busca, onVerProntuario, onImprimirProntuario }) => {
         </div>
     );
 };
+
 export default ProntuarioList;
