@@ -139,7 +139,7 @@ const AddPaciente = () => {
       }
     };
 
-    axios.post('http://localhost:8082/cuidarme/api/paciente/cadastrar', paciente)
+    axios.post('http://localhost:8082/cuidarme/api/psicologos/cadastrar-pacientes/${lookupId}', psicologo)
       .then(response => {
         alert('Paciente cadastrado com sucesso!');
         navigate('/paciente');

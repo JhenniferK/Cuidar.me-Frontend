@@ -21,7 +21,7 @@ const Cadastro = () => {
             senha
         };
 
-        axios.post('http://localhost:8082/cuidarme/api/psicologo/cadastrar', psicologo)
+        axios.post('http://localhost:8082/cuidarme/api/psicologos/cadastrar', psicologo)
             .then((response) => {
                 const psicologoCadastrado = response.data;
                 localStorage.setItem('psicologo', JSON.stringify(psicologoCadastrado));

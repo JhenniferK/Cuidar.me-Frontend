@@ -45,7 +45,7 @@ const EditarPaciente = () => {
 
   useEffect(() => {
     if (lookupId) {
-      axios.get(`http://localhost:8082/cuidarme/api/paciente/buscar/${lookupId}`)
+      axios.get(`http://localhost:8082/cuidarme/api/pacientes/buscar/${lookupId}`)
         .then(response => {
           const paciente = response.data;
           setNome(paciente.nome || '');
@@ -152,7 +152,7 @@ const EditarPaciente = () => {
       contatoEmergencia
     };
 
-    axios.patch(`http://localhost:8082/cuidarme/api/paciente/atualizar/${lookupId}`, paciente)
+    axios.patch(`http://localhost:8082/cuidarme/api/pacientes/atualizar/${lookupId}`, paciente)
       .then(() => {
         alert('Informações atualizadas com sucesso!');
         navigate('/paciente');
