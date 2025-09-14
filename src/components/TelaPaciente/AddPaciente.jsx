@@ -133,19 +133,16 @@ const AddPaciente = () => {
       enderecoPessoal,
       enderecoTrabalho,
       infoAdicionais,
-      contatoEmergencia,
-      psicologo: {
-        lookupId: psicologoId
-      }
+      contatoEmergencia
     };
 
-    axios.post('http://localhost:8082/cuidarme/api/psicologos/cadastrar-pacientes/${lookupId}', psicologo)
+    axios.post(`http://localhost:8082/cuidarme/api/psicologos/cadastrar-pacientes/${psicologoId}`, psicologo)
       .then(response => {
         alert('Paciente cadastrado com sucesso!');
         navigate('/paciente');
       })
       .catch(error => {
-        console.error('Erro ao cadastrar paciente:', error);
+        console.error('Erro ao cadastrar paciente:', error.response.data.message);
         alert('Erro ao cadastrar paciente.');
       });
   }
